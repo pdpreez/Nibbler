@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/14 13:29:02 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/14 13:51:15 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,19 @@
 // #include "IEntity.hpp"
 #include "IGlib.hpp"
 #include "OpenGL.hpp"
+
+enum keys 
+{
+    EXIT,
+    OPENGL,
+    SDL,
+    SFML,
+    UP = 100,
+    DOWN = 101,
+    LEFT = 102,
+    RIGHT = 103,
+    PAUSE = 42
+};
 
 class Game
 {
@@ -30,9 +43,12 @@ class Game
         void run();
     private:
         IGlib *glib;
+        bool m_stayOpen;
         unsigned int m_width;
         unsigned int m_height;
         // std::vector<IEntity> snake;
+
+        void process_input();
 };
 
 #endif

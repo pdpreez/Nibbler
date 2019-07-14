@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/14 13:29:52 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/14 14:33:18 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJ_PATH = ./obj/
 INC_PATH = ./includes/
 GLAD_PATH = ./glad/
 
-SRC_FILE = main.cpp Game.cpp OpenGL.cpp
+SRC_FILE = main.cpp Game.cpp OpenGL.cpp Shader.cpp
 
 OBJ_FILE = $(SRC_FILE:%.cpp=%.o)
 

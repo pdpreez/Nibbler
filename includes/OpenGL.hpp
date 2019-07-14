@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:23:26 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/14 13:32:16 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/14 14:34:16 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "./glad/include/glad/glad.h"
 #include "./glfw/include/GLFW/glfw3.h"
 #include "IGlib.hpp"
+#include "Shader.hpp"
 #include <iostream>
 
 class OpenGL: public IGlib
@@ -34,10 +35,14 @@ class OpenGL: public IGlib
         virtual unsigned int retrieveInput();
     private:
         GLFWwindow *m_window;
+        Shader *m_shader;
         unsigned int m_screen_width;
         unsigned int m_screen_height;
-        // unsigned int m_vertexArray;
-        // unsigned int m_vertexBuffer;
+        static float m_vertices[];
+        static unsigned int m_indices[];
+        unsigned int m_vertexArray;
+        unsigned int m_vertexBuffer;
+        unsigned int m_elementBuffer;
 
         void initialise();
         static void error_callback(int error, const char *description);

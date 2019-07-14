@@ -6,19 +6,19 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/14 13:33:58 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/14 13:51:57 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.hpp"
 
 Game::Game()
-:m_width(100), m_height(100)
+:m_stayOpen(true), m_width(100), m_height(100)
 {
 }
 
 Game::Game(unsigned int width, unsigned int height)
-:m_width(width), m_height(height)
+:m_stayOpen(true), m_width(width), m_height(height)
 {
 }
 
@@ -44,8 +44,18 @@ void Game::run()
     (void)m_height;
     glib = new OpenGL();
     glib->createWindow();
-    while (1)
+    while (m_stayOpen)
     {
+        process_input();
         glib->refresh();
     }
+    glib->closeWindow();
+}
+
+void Game::process_input()
+{
+    unsigned int key;
+    key = glib->retrieveInput();
+    if (key == EXIT)
+        m_stayOpen = false;
 }
