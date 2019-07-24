@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/24 12:27:21 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/24 12:36:18 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,14 @@ GLFWA_INC = $(DEP_PATH)/glfw/src/libglfw3.a
 GLFW_INC = -I $(DEP_PATH)/glfw/include/
 GLAD_INC = -I $(DEP_PATH)/glad/include/
 
-all: setup $(NAME) 
+all: $(NAME) 
+
+install: $(OBJ_PATH) setup glad cmake
 
 $(NAME): $(SRC_PATH) $(OBJ_PATH) $(INC_PATH) $(OBJ)
 	$(CC) -o $@ $(OBJ) obj/glad.o $(GLFWA_INC) $(GLFW)
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.cpp glad cmake
+$(OBJ_PATH)%.o: $(SRC_PATH)%.cpp
 	$(CC) -I$(INC_PATH) $(GLFW_INC) $(GLAD_INC) -o $@ -c $<
 
 $(OBJ_PATH):
