@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/24 11:58:09 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/24 12:25:26 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ setup: $(DEP_PATH)
 	git submodule init
 	git submodule update
 	$(cmake)
+	$(glad)
 
 glad: $(DEP_PATH)/glad/src/glad.c
 	gcc -I $(DEP_PATH)/glad/include/ -c $(DEP_PATH)/glad/src/glad.c -o ./obj/glad.o
