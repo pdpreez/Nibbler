@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/24 11:30:13 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/24 11:45:26 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,8 +61,8 @@ glad: $(DEP_PATH)/glad/src/glad.c
 	gcc -c ./obj/ -I $(DEP_PATH)/glad/include/
 
 cmake:
-	brew install cmake
-	~/.brew/Cellar/cmake/3.15.0/bin/cmake .
+	~/.brew/Cellar/cmake/3.15.0/bin/cmake -S $(DEP_PATH)/glfw/ -B $(DEP_PATH)/glfw/
+	make -C $(DEP_PATH)/glfw/
 
 clean:
 	/bin/rm -rf $(OBJ)
