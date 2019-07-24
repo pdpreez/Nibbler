@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/24 11:53:02 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/24 11:58:09 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = nibbler
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 INC_PATH = ./includes/
-DEP_PATH = ./dependencies/
+DEP_PATH = ./dependencies
 
 SRC_FILE = main.cpp Game.cpp OpenGL.cpp Shader.cpp
 
@@ -55,7 +55,6 @@ $(DEP_PATH):
 setup: $(DEP_PATH)
 	git submodule init
 	git submodule update
-	$(glad)
 	$(cmake)
 
 glad: $(DEP_PATH)/glad/src/glad.c
@@ -67,7 +66,7 @@ cmake:
 
 clean:
 	/bin/rm -rf $(OBJ)
-	/bin/rm glad.o
+	/bin/rm obj/glad.o
 
 fclean: clean
 	/bin/rm $(NAME)
