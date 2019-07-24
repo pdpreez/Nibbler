@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/14 13:51:57 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/24 13:50:36 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void Game::process_input()
 {
     unsigned int key;
     key = glib->retrieveInput();
+    if (key != 1)
+        std::cout << key << std::endl;
     if (key == EXIT)
         m_stayOpen = false;
 }

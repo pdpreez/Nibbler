@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:59:07 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/14 15:05:02 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/24 14:31:22 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void OpenGL::initialise()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    // glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     glfwSetErrorCallback(error_callback);
     
 }
@@ -86,10 +87,10 @@ void OpenGL::createWindow()
 
     float vertices[] = 
     {
-         0.2,  0.2,
-         0.2, -0.2,
-        -0.2, -0.2,
-        -0.2,  0.2
+         1.0,  1.0,
+         1.0, -1.0,
+        -1.0, -1.0,
+        -1.0,  1.0
     };
     
 
@@ -149,6 +150,9 @@ void OpenGL::refresh()
     glClear(GL_COLOR_BUFFER_BIT);
     m_shader->use();
     glBindVertexArray(m_vertexArray);
+    glViewport(20, 20, 20, 20);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glViewport(0, 0, 20, 20);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glfwSwapBuffers(m_window);
     glfwPollEvents();

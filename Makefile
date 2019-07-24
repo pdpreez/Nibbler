@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/24 12:36:18 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/24 13:44:32 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,10 @@ GLAD_INC = -I $(DEP_PATH)/glad/include/
 all: $(NAME) 
 
 install: $(OBJ_PATH) setup glad cmake
+
+homebrew:
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
+	reset
 
 $(NAME): $(SRC_PATH) $(OBJ_PATH) $(INC_PATH) $(OBJ)
 	$(CC) -o $@ $(OBJ) obj/glad.o $(GLFWA_INC) $(GLFW)
