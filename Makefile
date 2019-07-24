@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/14 14:33:18 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/24 11:02:48 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = nibbler
 SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 INC_PATH = ./includes/
-GLAD_PATH = ./glad/
+DEP_PATH = ./dependencies/
 
 SRC_FILE = main.cpp Game.cpp OpenGL.cpp Shader.cpp
 
@@ -30,7 +30,7 @@ CC = clang++ $(CSTD) $(CCFLAGS)
 GLFW = -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 GLFW_INC = ./includes/glfw/src/libglfw3.a
 
-all: $(NAME) 
+all: setup $(NAME) 
 
 $(NAME): $(SRC_PATH) $(OBJ_PATH) $(INC_PATH) $(OBJ)
 	$(CC) -o $@ $(OBJ) obj/glad.o $(GLFW_INC) $(GLFW)
@@ -46,6 +46,10 @@ $(INC_PATH):
 
 $(SRC_PATH):
 	mkdir $(SRC_PATH)
+
+setup:
+	mkdir $(DEP_PATH)
+	unzip glad.
 
 clean:
 	/bin/rm -rf $(OBJ)
