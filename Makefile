@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/24 11:02:48 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/24 11:30:13 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,15 +28,17 @@ CCFLAGS = -Wall -Wextra -Werror
 CSTD = -std=c++17
 CC = clang++ $(CSTD) $(CCFLAGS)
 GLFW = -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
-GLFW_INC = ./includes/glfw/src/libglfw3.a
+GLFWA_INC = $(DEP_PATH)/glfw/src/libglfw3.a
+GLFW_INC = -I $(DEP_PATH)/glfw/include/
+GLAD_INC = -I $(DEP_PATH)/glad/include/
 
 all: setup $(NAME) 
 
 $(NAME): $(SRC_PATH) $(OBJ_PATH) $(INC_PATH) $(OBJ)
-	$(CC) -o $@ $(OBJ) obj/glad.o $(GLFW_INC) $(GLFW)
+	$(CC) -o $@ $(OBJ) obj/glad.o $(GLFWA_INC) $(GLFW)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.cpp
-	$(CC) -I$(INC_PATH) -o $@ -c $<
+	$(CC) -I$(INC_PATH) $(GLFW_INC) $(GLAD_INC) -o $@ -c $<
 
 $(OBJ_PATH):
 	mkdir $(OBJ_PATH)
@@ -47,9 +49,20 @@ $(INC_PATH):
 $(SRC_PATH):
 	mkdir $(SRC_PATH)
 
-setup:
+$(DEP_PATH):
 	mkdir $(DEP_PATH)
-	unzip glad.
+
+setup: $(DEP_PATH)
+	git submodule init
+	git submodule update
+	$(glad)
+
+glad: $(DEP_PATH)/glad/src/glad.c
+	gcc -c ./obj/ -I $(DEP_PATH)/glad/include/
+
+cmake:
+	brew install cmake
+	~/.brew/Cellar/cmake/3.15.0/bin/cmake .
 
 clean:
 	/bin/rm -rf $(OBJ)

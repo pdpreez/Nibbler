@@ -6,16 +6,16 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:23:26 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/14 14:34:16 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/24 11:24:56 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OPENGL_HPP
 #define OPENGL_HPP
 
-#include "./glad/include/KHR/khrplatform.h"
-#include "./glad/include/glad/glad.h"
-#include "./glfw/include/GLFW/glfw3.h"
+#include "KHR/khrplatform.h"
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
 #include "IGlib.hpp"
 #include "Shader.hpp"
 #include <iostream>

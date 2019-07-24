@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 08:18:10 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/14 14:51:46 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/24 11:27:04 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include <ostream>
 #include <sstream>
 
-#include "./glad/include/glad/glad.h"
-#include "./glfw/include/GLFW/glfw3.h"
+#include "glad/glad.h"
+#include "GLFW/glfw3.h"
 
 class Shader
 {
