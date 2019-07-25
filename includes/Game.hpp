@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/24 13:45:48 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/25 13:50:54 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #define GAME_HPP
 
 #include <vector>
+#include <chrono>
 // #include "IEntity.hpp"
 #include "IGlib.hpp"
 #include "OpenGL.hpp"
@@ -46,6 +47,7 @@ class Game
         bool m_stayOpen;
         unsigned int m_width;
         unsigned int m_height;
+        std::chrono::milliseconds getTime() const;
         // std::vector<IEntity> snake;
 
         void process_input();

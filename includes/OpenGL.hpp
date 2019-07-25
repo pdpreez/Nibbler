@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:23:26 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/24 11:24:56 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/25 10:03:06 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ class OpenGL: public IGlib
         OpenGL &operator=(OpenGL const &rhs);
         ~OpenGL();
         virtual void refresh();
+        virtual void startFrame();
+        virtual void endFrame();
         virtual void drawEntity(IEntity const &entity);
+        virtual void drawSquare(unsigned int x, unsigned int y);
         virtual void createWindow();
         virtual void closeWindow();
-        virtual unsigned int retrieveInput();
+        virtual int retrieveInput();
     private:
         GLFWwindow *m_window;
         Shader *m_shader;
@@ -43,6 +46,7 @@ class OpenGL: public IGlib
         unsigned int m_vertexArray;
         unsigned int m_vertexBuffer;
         unsigned int m_elementBuffer;
+
 
         void initialise();
         static void error_callback(int error, const char *description);
