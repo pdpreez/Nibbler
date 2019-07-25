@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/25 07:53:44 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/25 08:05:39 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ all: $(NAME)
 install: $(OBJ_PATH) setup glad cmake
 
 homebrew:
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
+	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
 	reset
 
 $(NAME): $(SRC_PATH) $(OBJ_PATH) $(INC_PATH) $(OBJ)
