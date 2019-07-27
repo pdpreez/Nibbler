@@ -16,10 +16,10 @@
 
 float OpenGL::m_vertices[] = 
 {
-     1.0,  1.0,
-     1.0, -1.0,
-    -1.0, -1.0,
-    -1.0,  1.0
+     10.0,  1.0,
+     10.0, -1.0,
+    -10.0, -1.0,
+    -10.0,  1.0
 };
 
 unsigned int OpenGL::m_indices[] =
@@ -43,13 +43,13 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
  // Constructors 
 
 OpenGL::OpenGL()
-:m_screen_width(800), m_screen_height(600)
+:m_screen_width(800), m_screen_height(800)
 {
     initialise();
 }
 
 OpenGL::OpenGL(unsigned int width, unsigned int height)
-:m_screen_width(width), m_screen_height(height)
+:m_screen_width(width * 8), m_screen_height(height * 8)
 {
     initialise();
 }
@@ -201,7 +201,13 @@ void OpenGL::drawEntity(IEntity const &entity)
 
 void OpenGL::drawSquare(unsigned int x, unsigned int y)
 {
+    (void)x;
+    (void)y;
+    std::cout << "x: " << x << std::endl;
+    std::cout << "y: " << y << std::endl;
     m_shader->setVec3("color", 1.0, 0.0, 0.0);
-    glViewport(x * 20, y * 20, 20, 20);
+    m_shader->setVec3("pos", 50, 50, 0.0);
+    m_shader->use();
+    // glViewport(x * 20, y * 20, 20, 20);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

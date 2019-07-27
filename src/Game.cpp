@@ -45,9 +45,9 @@ void Game::run()
 {
     (void)m_width;
     (void)m_height;
-    glib = new OpenGL(m_width * 8, m_height * 8);
+    glib = new OpenGL(m_width, m_height);
     glib->createWindow();
-    double fps = (1.0 / 15) * 1000;
+    double fps = (1.0 / 60) * 1000;
     auto start = getTime();
     while (m_stayOpen)
     {
@@ -84,20 +84,20 @@ void Game::process_input()
     if (key == DOWN)
     {
         g_pos_y -= 1;
-        if (g_pos_y < 0)
-            g_pos_y = 0;
+        if (g_pos_y < 1)
+            g_pos_y = 1;
     }
     if (key == LEFT)
     {
         g_pos_x -= 1;
-        if (g_pos_x < 0)
-            g_pos_x = 0;
+        if (g_pos_x < 1)
+            g_pos_x = 1;
     }
     if (key == RIGHT)
     {
         g_pos_x += 1;
-        if (g_pos_x > 15)
-            g_pos_x = 15;
+        if (g_pos_x > m_width)
+            g_pos_x = m_width;
     }
     if (key == EXIT)
         m_stayOpen = false;
