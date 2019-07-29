@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/29 12:24:22 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/29 12:51:39 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,15 @@ OBJ = $(addprefix $(OBJ_PATH), $(OBJ_FILE))
 CCFLAGS = -Wall -Wextra -Werror
 CSTD = -std=c++17
 CC = clang++ $(CSTD) $(CCFLAGS)
+CMAKE = ~/.brew/Cellar/cmake/3.15.1/bin/cmake
+
 GLFW = -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 GLFWA_INC = $(DEP_PATH)/glfw/src/libglfw3.a
 GLFW_INC = -I $(DEP_PATH)/glfw/include/
 GLAD_INC = -I $(DEP_PATH)/glad/include/
 
+SDL_TAR = SDL2-2.0.10.tar.gz
+SDL_URL = https://www.libsdl.org/release/$(SDL_TAR)
 all: $(NAME) 
 
 install: $(OBJ_PATH) setup glad cmake sdl
@@ -66,11 +70,16 @@ glad: $(DEP_PATH)/glad/src/glad.c
 	gcc -I $(DEP_PATH)/glad/include/ -c $(DEP_PATH)/glad/src/glad.c -o ./obj/glad.o
 
 sdl:
-	make install -C ./dependencies/SDL/
-	make -C ./dependencies/SDL/
+	mkdir $(DEP_PATH)/SDL_SRC
+	mkdir $(DEP_PATH)/SDL_BUILD
+	curl -O $(SDL_URL)
+	tar -xf $(SDL_TAR) -C $(DEP_PATH)/SDL_SRC --strip-components 1
+	$(CMAKE) -S $(DEP_PATH)/SDL_SRC  -B $(DEP_PATH)/SDL_BUILD
+	make install -C $(DEP_PATH)/SDL_BUILD
+	make -C $(DEP_PATH)/SDL_BUILD
 
 cmake:
-	~/.brew/bin/brew install cmake
+	#~/.brew/bin/brew install cmake
 	~/.brew/Cellar/cmake/3.15.1/bin/cmake -S $(DEP_PATH)/glfw/ -B $(DEP_PATH)/glfw/
 	make -C $(DEP_PATH)/glfw/
 
