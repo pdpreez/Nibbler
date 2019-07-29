@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/25 13:52:21 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/29 15:40:27 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void Game::run()
 {
     (void)m_width;
     (void)m_height;
-    glib = new OpenGL(m_width, m_height);
+    glib = new class SDL(m_width, m_height);
     glib->createWindow();
     double fps = (1.0 / 60) * 1000;
     auto start = getTime();
@@ -73,32 +73,6 @@ void Game::process_input()
     
     unsigned int key;
     key = glib->retrieveInput();
-    if (key != 1)
-        std::cout << key << std::endl;
-    if (key == UP)
-    {
-        g_pos_y += 1;
-        if (g_pos_y > m_height)
-            g_pos_y = m_height;
-    }
-    if (key == DOWN)
-    {
-        g_pos_y -= 1;
-        if (g_pos_y < 1)
-            g_pos_y = 1;
-    }
-    if (key == LEFT)
-    {
-        g_pos_x -= 1;
-        if (g_pos_x < 1)
-            g_pos_x = 1;
-    }
-    if (key == RIGHT)
-    {
-        g_pos_x += 1;
-        if (g_pos_x > m_width)
-            g_pos_x = m_width;
-    }
     if (key == EXIT)
         m_stayOpen = false;
 }
@@ -106,4 +80,9 @@ void Game::process_input()
 std::chrono::milliseconds Game::getTime() const
 {
     return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
+}
+
+void Game::fps_delay()
+{
+    
 }

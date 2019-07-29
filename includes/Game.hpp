@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/25 13:50:54 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/29 15:39:20 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 // #include "IEntity.hpp"
 #include "IGlib.hpp"
 #include "OpenGL.hpp"
+#include "SDL.hpp"
 
 enum keys 
 {
@@ -51,6 +52,7 @@ class Game
         // std::vector<IEntity> snake;
 
         void process_input();
+        void fps_delay();
 };
 
 #endif

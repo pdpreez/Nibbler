@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/29 14:09:41 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/29 15:39:44 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJ_PATH = ./obj/
 INC_PATH = ./includes/
 DEP_PATH = ./dependencies
 
-SRC_FILE = main.cpp Game.cpp OpenGL.cpp Shader.cpp
+SRC_FILE = main.cpp Game.cpp OpenGL.cpp SDL.cpp Shader.cpp
 
 OBJ_FILE = $(SRC_FILE:%.cpp=%.o)
 
@@ -36,6 +36,8 @@ GLAD_INC = -I $(DEP_PATH)/glad/include/
 
 SDL_TAR = SDL2-2.0.10.tar.gz
 SDL_URL = https://www.libsdl.org/release/$(SDL_TAR)
+SDL_INC = -I ~/.brew/include/SDL2/
+SDLA_INC = $(DEP_PATH)/SDL_BUILD/libSDL2.a $(DEP_PATH)/SDL_BUILD/libSDL2main.a -framework AudioToolbox -framework CoreVideo -framework Carbon -framework ForceFeedback -framework IOKit -framework Cocoa -framework CoreAudio -liconv -lm  -Wl,-current_version,10.0.0 -Wl,-compatibility_version,1.0.0 -Wl,-undefined,error
 
 all: $(NAME) 
 
@@ -46,10 +48,10 @@ homebrew:
 	reset
 
 $(NAME): $(SRC_PATH) $(OBJ_PATH) $(INC_PATH) $(OBJ)
-	$(CC) -o $@ $(OBJ) obj/glad.o $(GLFWA_INC) $(GLFW)
+	$(CC) -o $@ $(OBJ) obj/glad.o $(GLFWA_INC) $(GLFW) $(SDLA_INC)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.cpp glad
-	$(CC) -I$(INC_PATH) $(GLFW_INC) $(GLAD_INC) -o $@ -c $<
+	$(CC) -I$(INC_PATH) $(GLFW_INC) $(GLAD_INC) $(SDL_INC)  -o $@ -c $<
 
 $(OBJ_PATH):
 	mkdir $(OBJ_PATH)
