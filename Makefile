@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/29 12:51:39 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/29 14:09:41 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ GLAD_INC = -I $(DEP_PATH)/glad/include/
 
 SDL_TAR = SDL2-2.0.10.tar.gz
 SDL_URL = https://www.libsdl.org/release/$(SDL_TAR)
+
 all: $(NAME) 
 
 install: $(OBJ_PATH) setup glad cmake sdl
@@ -47,7 +48,7 @@ homebrew:
 $(NAME): $(SRC_PATH) $(OBJ_PATH) $(INC_PATH) $(OBJ)
 	$(CC) -o $@ $(OBJ) obj/glad.o $(GLFWA_INC) $(GLFW)
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.cpp
+$(OBJ_PATH)%.o: $(SRC_PATH)%.cpp glad
 	$(CC) -I$(INC_PATH) $(GLFW_INC) $(GLAD_INC) -o $@ -c $<
 
 $(OBJ_PATH):
@@ -66,7 +67,7 @@ setup: $(DEP_PATH)
 	git submodule init
 	git submodule update
 
-glad: $(DEP_PATH)/glad/src/glad.c
+glad: $(DEP_PATH)/glad/src/glad.c $(OBJ_PATH)
 	gcc -I $(DEP_PATH)/glad/include/ -c $(DEP_PATH)/glad/src/glad.c -o ./obj/glad.o
 
 sdl:
