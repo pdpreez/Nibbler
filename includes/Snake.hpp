@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:02:48 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/14 12:25:06 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/30 15:33:15 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,21 @@
 class Snake: public IEntity
 {
     public:
-        Snake();
+        Snake(unsigned int x, unsigned int y);
         Snake(Snake const &rhs);
         Snake &operator=(Snake const &rhs);
         ~Snake();
+
+        void move();
+        void setVec(int x, int y);
+        virtual unsigned int getX() const;
+        virtual unsigned int getY() const;
+        virtual unsigned int getColor() const;
     private:
-        unsigned int length;
-        
+        Snake();
+        unsigned int m_length;
+        unsigned int m_vec_x;
+        unsigned int m_vec_y;
 };
 
 #endif

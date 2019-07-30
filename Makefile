@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/07/30 13:25:42 by ppreez           ###   ########.fr        #
+#    Updated: 2019/07/30 15:25:28 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJ_PATH = ./obj/
 INC_PATH = ./includes/
 DEP_PATH = ./dependencies
 
-SRC_FILE = main.cpp Game.cpp OpenGL.cpp SDL.cpp Shader.cpp
+SRC_FILE = main.cpp Game.cpp OpenGL.cpp SDL.cpp Shader.cpp Snake.cpp
 
 OBJ_FILE = $(SRC_FILE:%.cpp=%.o)
 

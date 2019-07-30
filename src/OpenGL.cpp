@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:59:07 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/25 13:43:54 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/30 15:06:12 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,11 +192,6 @@ void OpenGL::endFrame()
 {
     glfwSwapBuffers(m_window);
     glfwPollEvents();
-}
-
-void OpenGL::drawEntity(IEntity const &entity)
-{
-    (void)entity;
 }
 
 void OpenGL::drawSquare(unsigned int x, unsigned int y)

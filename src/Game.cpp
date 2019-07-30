@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/30 13:36:59 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/30 15:38:02 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ unsigned int g_pos_y = 0;
 
 void Game::run()
 {
-    (void)m_width;
-    (void)m_height;
+    snake = new Snake(m_height / 4, m_width / 4);
     glib = new class SDL(m_width, m_height);
     glib->createWindow();
-    double fps = (1.0 / 60) * 1000;
+    double fps = (1.0 / 15) * 1000;
     auto start = getTime();
     while (m_stayOpen)
     {
@@ -61,7 +60,8 @@ void Game::run()
         start = current;
         process_input();
         glib->startFrame();
-        glib->drawSquare(g_pos_x, g_pos_y);
+        glib->drawSquare(snake->getX(), snake->getY());
+        snake->move();
         glib->endFrame();
         
     }
@@ -76,13 +76,21 @@ void Game::process_input()
     if (key == EXIT)
         m_stayOpen = false;
     if (key == UP)
-        g_pos_y -= 1;
+    {
+        snake->setVec(0, -1);
+    }
     if (key == RIGHT)
-        g_pos_x += 1;
+    {
+        snake->setVec(1, 0);
+    }
     if (key == DOWN)
-        g_pos_y += 1;
+    {
+        snake->setVec(0, 1);
+    }
     if (key == LEFT)
-        g_pos_x -= 1;
+    {
+        snake->setVec(-1, 0);
+    }
 }
 
 std::chrono::milliseconds Game::getTime() const

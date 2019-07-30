@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/29 15:39:20 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/30 15:22:42 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,18 @@
 
 #include <vector>
 #include <chrono>
-// #include "IEntity.hpp"
+#include "Snake.hpp"
 #include "IGlib.hpp"
 #include "OpenGL.hpp"
 #include "SDL.hpp"
+
+struct colors 
+{
+    unsigned int r;
+    unsigned int g;
+    unsigned int b;
+    unsigned int a;
+};
 
 enum keys 
 {
@@ -27,9 +35,9 @@ enum keys
     SDL,
     SFML,
     UP = 100,
-    DOWN = 101,
-    LEFT = 102,
-    RIGHT = 103,
+    RIGHT = 101,
+    DOWN = 102,
+    LEFT = 103,
     PAUSE = 42
 };
 
@@ -45,11 +53,11 @@ class Game
         void run();
     private:
         IGlib *glib;
+        Snake *snake;
         bool m_stayOpen;
         unsigned int m_width;
         unsigned int m_height;
         std::chrono::milliseconds getTime() const;
-        // std::vector<IEntity> snake;
 
         void process_input();
         void fps_delay();
