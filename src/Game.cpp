@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/29 15:47:49 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/30 13:36:59 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,14 @@ void Game::process_input()
     key = glib->retrieveInput();
     if (key == EXIT)
         m_stayOpen = false;
+    if (key == UP)
+        g_pos_y -= 1;
+    if (key == RIGHT)
+        g_pos_x += 1;
+    if (key == DOWN)
+        g_pos_y += 1;
+    if (key == LEFT)
+        g_pos_x -= 1;
 }
 
 std::chrono::milliseconds Game::getTime() const
