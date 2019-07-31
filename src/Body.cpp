@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   IEntity.hpp                                        :+:      :+:    :+:   */
+/*   Body.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/14 11:35:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/30 15:23:07 by ppreez           ###   ########.fr       */
+/*   Created: 2019/07/31 11:19:09 by ppreez            #+#    #+#             */
+/*   Updated: 2019/07/31 12:43:40 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IENTITY_HPP
-#define IENTITY_HPP
+#include "Body.hpp"
 
-class IEntity
+Body::Body()
+{}
+
+Body::Body(unsigned int x, unsigned int y)
 {
-    public:
-        virtual unsigned int getX() const = 0;
-        virtual unsigned int getY() const = 0;
-        virtual unsigned int getColor() const = 0;
-    protected:
-        unsigned int m_pos_x;
-        unsigned int m_pos_y;
-        unsigned int m_priority;
-        unsigned int m_color;
-};
+    m_pos_x = x;
+    m_pos_y = y;
+}
 
-#endif
+Body::Body(Body const &rhs)
+{
+    *this = rhs;
+}
+
+Body &Body::operator=(Body const &rhs)
+{
+    if (this != &rhs)
+    {
+        *this = rhs;
+    }
+    return *this;
+}

@@ -6,18 +6,18 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/30 15:38:02 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/31 13:36:16 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.hpp"
 
 Game::Game()
-:m_stayOpen(true), m_width(100), m_height(100)
+:m_stayOpen(true), m_width(50), m_height(30)
 {
 }
 
-Game::Game(unsigned int width, unsigned int height)
+Game::Game(int width, int height)
 :m_stayOpen(true), m_width(width), m_height(height)
 {
 }
@@ -36,10 +36,10 @@ Game &Game::operator=(Game const &rhs)
 
 Game::~Game()
 {
-}
+    // delete[] snake;
+    // delete[] glib;
 
-unsigned int g_pos_x = 0;
-unsigned int g_pos_y = 0;
+}
 
 void Game::run()
 {
@@ -59,11 +59,12 @@ void Game::run()
         }
         start = current;
         process_input();
+        collisions();
         glib->startFrame();
         glib->drawSquare(snake->getX(), snake->getY());
-        snake->move();
+        for (auto a = snake->m_body.begin(); a != snake->m_body.end(); a++)
+            glib->drawSquare((*a)->getX(), (*a)->getY());
         glib->endFrame();
-        
     }
     glib->closeWindow();
 }
@@ -75,22 +76,10 @@ void Game::process_input()
     key = glib->retrieveInput();
     if (key == EXIT)
         m_stayOpen = false;
-    if (key == UP)
-    {
-        snake->setVec(0, -1);
-    }
-    if (key == RIGHT)
-    {
-        snake->setVec(1, 0);
-    }
-    if (key == DOWN)
-    {
-        snake->setVec(0, 1);
-    }
-    if (key == LEFT)
-    {
-        snake->setVec(-1, 0);
-    }
+    snake->move(key);
+    if (snake->getX() < 0 || snake->getX() > m_width
+        || snake->getY() < 0 || snake->getY() > m_height)
+        m_stayOpen = false;
 }
 
 std::chrono::milliseconds Game::getTime() const
@@ -101,4 +90,18 @@ std::chrono::milliseconds Game::getTime() const
 void Game::fps_delay()
 {
     
+}
+
+void Game::collisions()
+{
+    int x = snake->getX();
+    int y = snake->getY();
+    for (auto a = snake->m_body.begin(); a != snake->m_body.end(); a++)
+    {
+        if ((*a)->getX() == x && (*a)->getY() == y)
+        {
+            m_stayOpen = false;
+        }
+    }
+
 }
