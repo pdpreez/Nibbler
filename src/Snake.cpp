@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:02:37 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/31 13:34:44 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/31 14:30:17 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ Snake::Snake(unsigned int x, unsigned int y)
 {
     m_pos_x = x;
     m_pos_y = y;
-    m_length = 14;
+    m_length = 4;
     m_vec_x = 1;
     m_vec_y = 0;
     m_speed = 1;
-    m_last_key = LEFT;
+    m_last_key = RIGHT;
 
     for (unsigned int i = 0; i < m_length; i++)
     {

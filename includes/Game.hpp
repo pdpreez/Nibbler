@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/31 13:26:46 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/31 14:21:15 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <vector>
 #include <chrono>
 #include "Snake.hpp"
+#include "Fruit.hpp"
 #include "IGlib.hpp"
 #include "OpenGL.hpp"
 #include "SDL.hpp"
@@ -41,6 +42,7 @@ class Game
     private:
         IGlib *glib;
         Snake *snake;
+        Fruit *fruit;
         bool m_stayOpen;
         int m_width;
         int m_height;

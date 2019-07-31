@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:59:07 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/31 12:25:34 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/31 15:04:18 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ OpenGL::OpenGL()
 }
 
 OpenGL::OpenGL(unsigned int width, unsigned int height)
-:m_screen_width(width * 8), m_screen_height(height * 8)
+:m_screen_width(width * 20), m_screen_height(height * 20)
 {
     initialise();
 }
@@ -194,13 +194,14 @@ void OpenGL::endFrame()
     glfwPollEvents();
 }
 
-void OpenGL::drawSquare(unsigned int x, unsigned int y)
+void OpenGL::drawSquare(unsigned int x, unsigned int y, unsigned int color)
 {
     (void)x;
     (void)y;
-    m_shader->setVec3("color", 1.0, 0.0, 0.0);
-    m_shader->setVec3("pos", 50, 50, 0.0);
+    (void)color;
+    // m_shader->setVec3("color", 1.0, 0.0, 0.0);
+    // m_shader->setVec3("pos", 50, 50, 0.0);
     m_shader->use();
-    // glViewport(x * 20, y * 20, 20, 20);
+    glViewport(x * 20, y * 20, 20, 20);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

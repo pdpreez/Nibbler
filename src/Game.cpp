@@ -6,14 +6,14 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/31 13:36:16 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/07/31 15:04:41 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.hpp"
 
 Game::Game()
-:m_stayOpen(true), m_width(50), m_height(30)
+:m_stayOpen(true), m_width(20), m_height(20)
 {
 }
 
@@ -44,6 +44,7 @@ Game::~Game()
 void Game::run()
 {
     snake = new Snake(m_height / 4, m_width / 4);
+    fruit = new Fruit(m_width, m_height);
     glib = new class SDL(m_width, m_height);
     glib->createWindow();
     double fps = (1.0 / 15) * 1000;
@@ -61,9 +62,10 @@ void Game::run()
         process_input();
         collisions();
         glib->startFrame();
-        glib->drawSquare(snake->getX(), snake->getY());
+        glib->drawSquare(snake->getX(), snake->getY(), 2);
         for (auto a = snake->m_body.begin(); a != snake->m_body.end(); a++)
-            glib->drawSquare((*a)->getX(), (*a)->getY());
+            glib->drawSquare((*a)->getX(), (*a)->getY(), 2);
+        glib->drawSquare(fruit->getX(), fruit->getY(), 1);
         glib->endFrame();
     }
     glib->closeWindow();
@@ -79,7 +81,7 @@ void Game::process_input()
     snake->move(key);
     if (snake->getX() < 0 || snake->getX() > m_width
         || snake->getY() < 0 || snake->getY() > m_height)
-        m_stayOpen = false;
+            m_stayOpen = false;
 }
 
 std::chrono::milliseconds Game::getTime() const
@@ -96,6 +98,11 @@ void Game::collisions()
 {
     int x = snake->getX();
     int y = snake->getY();
+    if (x == fruit->getX() && y == fruit->getY())
+    {
+        snake->grow();
+        fruit->reroll();
+    }
     for (auto a = snake->m_body.begin(); a != snake->m_body.end(); a++)
     {
         if ((*a)->getX() == x && (*a)->getY() == y)
