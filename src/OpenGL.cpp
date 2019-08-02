@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:59:07 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/02 14:44:10 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/02 15:01:02 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,6 @@ void OpenGL::createWindow()
     if (!m_window)
         throw std::exception();
     glfwMakeContextCurrent(m_window);
-    // glfwSetKeyCallback(m_window, keyCallback);
-    // glfwSetInputMode(m_window, GLFW_STICKY_KEYS, GLFW_TRUE);
     gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     glfwGetFramebufferSize(m_window, &width, &height);
     glViewport(0, 0, width, height);
