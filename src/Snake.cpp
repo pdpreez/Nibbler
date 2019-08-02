@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:02:37 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/31 14:30:17 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/02 09:43:50 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,15 @@ Snake::Snake(unsigned int x, unsigned int y)
     m_vec_y = 0;
     m_speed = 1;
     m_last_key = RIGHT;
+    m_color.r = 0;
+    m_color.g = 0;
+    m_color.b = 255;
+    m_color.g = 255;
+
 
     for (unsigned int i = 0; i < m_length; i++)
     {
-        m_body.push_back(new Body(m_pos_x - (i + 1), m_pos_y));
+        m_body.push_back(new Body(m_pos_x - (i + 1), m_pos_y, m_color));
     }
 }
 
@@ -85,7 +90,7 @@ void Snake::move(unsigned int key)
 
 void Snake::grow()
 {
-    Body *temp = new Body(m_body.back()->getX(), m_body.back()->getY());
+    Body *temp = new Body(m_body.back()->getX(), m_body.back()->getY(), m_color);
     m_body.push_back(temp);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:59:07 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/31 15:04:18 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/02 09:25:11 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ void OpenGL::endFrame()
     glfwPollEvents();
 }
 
-void OpenGL::drawSquare(unsigned int x, unsigned int y, unsigned int color)
+void OpenGL::drawSquare(unsigned int x, unsigned int y, struct s_color color)
 {
     (void)x;
     (void)y;

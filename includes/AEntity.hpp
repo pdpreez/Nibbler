@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:35:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/31 12:41:46 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/02 09:29:09 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 #define AENTITY_HPP
 
 #include "KeyCodes.hpp"
+struct s_color
+{
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    unsigned char a;
+};
+
 
 class AEntity
 {
@@ -26,12 +34,12 @@ class AEntity
         void setY(int y);
         int getX() const;
         int getY() const;
-        int getColor() const;
+        struct s_color getColor() const;
     protected:
         int m_pos_x;
         int m_pos_y;
         unsigned int m_priority;
-        unsigned int m_color;
+        struct s_color m_color;
 };
 
 #endif

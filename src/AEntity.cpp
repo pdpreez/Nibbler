@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 11:33:20 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/31 12:42:51 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/02 09:29:21 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int AEntity::getY() const
     return m_pos_y;
 }
 
-int AEntity::getColor() const
+struct s_color AEntity::getColor() const
 {
-    return 1;
+    return m_color;
 }

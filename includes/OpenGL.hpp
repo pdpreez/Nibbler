@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:23:26 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/31 14:45:25 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/02 09:24:22 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class OpenGL: public IGlib
         virtual void refresh();
         virtual void startFrame();
         virtual void endFrame();
-        virtual void drawSquare(unsigned int x, unsigned int y, unsigned int color);
+        virtual void drawSquare(unsigned int x, unsigned int y, struct s_color color);
         virtual void createWindow();
         virtual void closeWindow();
         virtual int retrieveInput();

@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/31 14:21:15 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/02 09:17:29 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,6 @@
 #include "IGlib.hpp"
 #include "OpenGL.hpp"
 #include "SDL.hpp"
-
-struct colors 
-{
-    unsigned int r;
-    unsigned int g;
-    unsigned int b;
-    unsigned int a;
-};
 
 class Game
 {
@@ -46,6 +38,7 @@ class Game
         bool m_stayOpen;
         int m_width;
         int m_height;
+        int m_fps;
         std::chrono::milliseconds getTime() const;
 
         void process_input();

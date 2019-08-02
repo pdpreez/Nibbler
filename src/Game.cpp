@@ -6,19 +6,19 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/31 15:04:41 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/02 09:37:09 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.hpp"
 
 Game::Game()
-:m_stayOpen(true), m_width(20), m_height(20)
+:m_stayOpen(true), m_width(40), m_height(30), m_fps(15)
 {
 }
 
 Game::Game(int width, int height)
-:m_stayOpen(true), m_width(width), m_height(height)
+:m_stayOpen(true), m_width(width), m_height(height), m_fps(15)
 {
 }
 
@@ -47,10 +47,10 @@ void Game::run()
     fruit = new Fruit(m_width, m_height);
     glib = new class SDL(m_width, m_height);
     glib->createWindow();
-    double fps = (1.0 / 15) * 1000;
     auto start = getTime();
     while (m_stayOpen)
     {
+        double fps = (1.0 / m_fps) * 1000;
         auto current = getTime();
         double delta = current.count() - start.count();
         while (delta < fps)
@@ -62,10 +62,12 @@ void Game::run()
         process_input();
         collisions();
         glib->startFrame();
-        glib->drawSquare(snake->getX(), snake->getY(), 2);
+        glib->drawSquare(snake->getX(), snake->getY(), snake->getColor());
         for (auto a = snake->m_body.begin(); a != snake->m_body.end(); a++)
-            glib->drawSquare((*a)->getX(), (*a)->getY(), 2);
-        glib->drawSquare(fruit->getX(), fruit->getY(), 1);
+        {
+            glib->drawSquare((*a)->getX(), (*a)->getY(), (*a)->getColor());
+        }
+        glib->drawSquare(fruit->getX(), fruit->getY(), fruit->getColor());
         glib->endFrame();
     }
     glib->closeWindow();
@@ -79,9 +81,6 @@ void Game::process_input()
     if (key == EXIT)
         m_stayOpen = false;
     snake->move(key);
-    if (snake->getX() < 0 || snake->getX() > m_width
-        || snake->getY() < 0 || snake->getY() > m_height)
-            m_stayOpen = false;
 }
 
 std::chrono::milliseconds Game::getTime() const
@@ -100,12 +99,15 @@ void Game::collisions()
     int y = snake->getY();
     if (x == fruit->getX() && y == fruit->getY())
     {
+        m_fps += 2;
         snake->grow();
         fruit->reroll();
     }
     for (auto a = snake->m_body.begin(); a != snake->m_body.end(); a++)
     {
-        if ((*a)->getX() == x && (*a)->getY() == y)
+        if (((*a)->getX() == x && (*a)->getY() == y) 
+        || (snake->getX() < 0 || snake->getX() >= m_width || snake->getY() < 0 || snake->getY() >= m_height ) 
+        || (*a)->getX() < 0 || (*a)->getX() >= m_width || (*a)->getY() < 0 || (*a)->getY() >= m_height)
         {
             m_stayOpen = false;
         }

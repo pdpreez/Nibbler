@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:13:08 by ppreez            #+#    #+#             */
-/*   Updated: 2019/07/31 14:20:35 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/02 09:38:49 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ Fruit::Fruit(int width, int height)
 {
     srand(time(NULL));
     reroll();
+    m_color.r = 255;
+    m_color.g = 0;
+    m_color.b = 255;
+    m_color.a = 255;
 }
 
 Fruit::Fruit(Fruit const &rhs)
