@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/02 09:17:29 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/02 14:10:37 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ class Game
         int m_width;
         int m_height;
         int m_fps;
-        std::chrono::milliseconds getTime() const;
+        unsigned int m_renderer;
 
+        std::chrono::milliseconds getTime() const;
         void process_input();
         void fps_delay();
         void collisions();
+        void change_renderer(unsigned int key);
 };
 
 #endif

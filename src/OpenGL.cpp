@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:59:07 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/02 09:25:11 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/02 14:44:10 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,9 @@ void OpenGL::createWindow()
     float vertices[] = 
     {
          1.0,  1.0,
-         1.0, -1.0,
-        -1.0, -1.0,
-        -1.0,  1.0
+         1.0,  0.0,
+         0.0,  0.0,
+         0.0,  1.0
     };
     
 
@@ -159,15 +159,19 @@ int OpenGL::retrieveInput()
     if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         return 0;
     if (glfwGetKey(m_window, GLFW_KEY_UP) == GLFW_PRESS)
-        return 100;
+        return UP;
     if (glfwGetKey(m_window, GLFW_KEY_DOWN) == GLFW_PRESS)
-        return 101;
+        return DOWN;
     if (glfwGetKey(m_window, GLFW_KEY_LEFT) == GLFW_PRESS)
-        return 102;
+        return LEFT;
     if (glfwGetKey(m_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
-        return 103;
+        return RIGHT;
+    if (glfwGetKey(m_window, GLFW_KEY_1) == GLFW_PRESS)
+        return OPENGL_R;
+    if (glfwGetKey(m_window, GLFW_KEY_2) == GLFW_PRESS)
+        return SDL_R;
     else
-        return 1;
+        return NONE;
 }
 
 void OpenGL::refresh()
@@ -196,12 +200,11 @@ void OpenGL::endFrame()
 
 void OpenGL::drawSquare(unsigned int x, unsigned int y, struct s_color color)
 {
-    (void)x;
-    (void)y;
-    (void)color;
-    // m_shader->setVec3("color", 1.0, 0.0, 0.0);
-    // m_shader->setVec3("pos", 50, 50, 0.0);
+    float r = static_cast<float>(color.r) / 255;
+    float g = static_cast<float>(color.g) / 255;
+    float b = static_cast<float>(color.b) / 255;
+    m_shader->setVec3("color", r, g, b);
+    m_shader->setVec3("pos", x, y, 0.0);
     m_shader->use();
-    glViewport(x * 20, y * 20, 20, 20);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

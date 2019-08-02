@@ -6,19 +6,19 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/02 09:37:09 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/02 14:15:18 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.hpp"
 
 Game::Game()
-:m_stayOpen(true), m_width(40), m_height(30), m_fps(15)
+:m_stayOpen(true), m_width(40), m_height(30), m_fps(15), m_renderer(2)
 {
 }
 
 Game::Game(int width, int height)
-:m_stayOpen(true), m_width(width), m_height(height), m_fps(15)
+:m_stayOpen(true), m_width(width), m_height(height), m_fps(15), m_renderer(2)
 {
 }
 
@@ -80,6 +80,9 @@ void Game::process_input()
     key = glib->retrieveInput();
     if (key == EXIT)
         m_stayOpen = false;
+    if (key == OPENGL_R || key == SDL_R)
+        change_renderer(key);
+
     snake->move(key);
 }
 
@@ -112,5 +115,25 @@ void Game::collisions()
             m_stayOpen = false;
         }
     }
+}
 
+void Game::change_renderer(unsigned int key)
+{
+    if (key == OPENGL_R && m_renderer != key)
+    {
+        glib->closeWindow();
+        delete glib;
+        glib = new class OpenGL(m_width, m_height);
+        glib->createWindow();
+        m_renderer = key;
+
+    }
+    else if (key == SDL_R && m_renderer != key)
+    {
+        glib->closeWindow();
+        delete glib;
+        glib = new class SDL(m_width, m_height);
+        glib->createWindow();
+        m_renderer = key;
+    }
 }
