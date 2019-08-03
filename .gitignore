@@ -4,5 +4,4 @@ obj/
 shared/
 includes/glad/
 includes/glfw/
-SDL*
 dependencies/SDL*

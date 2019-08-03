@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/08/03 13:16:11 by ppreez           ###   ########.fr        #
+#    Updated: 2019/08/03 14:35:35 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SDL_H_PATH = ~/.brew/include/SDL2/
 
 all: $(NAME) 
 
-install: $(OBJ_PATH) setup glad_install cmake sdl_install
+install: $(OBJ_PATH) setup glad_install cmake_install sdl_install
 
 homebrew:
 	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"

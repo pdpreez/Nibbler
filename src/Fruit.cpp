@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 14:13:08 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/02 09:38:49 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/03 14:01:11 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,11 @@ Fruit &Fruit::operator=(Fruit const &rhs)
         *this = rhs;
     }
     return *this;
+}
+
+Fruit::~Fruit()
+{
+    
 }
 
 void Fruit::reroll()

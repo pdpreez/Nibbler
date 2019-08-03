@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   OpenGL.hpp                                         :+:      :+:    :+:   */
+/*   SDL.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/14 12:23:26 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/03 14:48:32 by ppreez           ###   ########.fr       */
+/*   Created: 2019/08/03 14:11:19 by ppreez            #+#    #+#             */
+/*   Updated: 2019/08/03 14:48:55 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OPENGL_HPP
-#define OPENGL_HPP
+#ifndef SDL_HPP
+#define SDL_HPP
 
-#include "KHR/khrplatform.h"
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
 #include "IGlib.hpp"
-#include "Shader.hpp"
+#include "SDL.h"
 #include <iostream>
 
-class Shader;
-
-class OpenGL: public IGlib
+class SDL: public IGlib
 {
     public:
-        OpenGL();
-        OpenGL(unsigned int width, unsigned int height);
-        OpenGL(OpenGL const &rhs);
-        OpenGL &operator=(OpenGL const &rhs);
-        virtual ~OpenGL();
-        
+        SDL(unsigned int width, unsigned int height);
+        SDL(SDL const &rhs);
+        SDL &operator=(SDL const &rhs);
+        virtual ~SDL();
+
         virtual void refresh();
         virtual void startFrame();
         virtual void endFrame();
@@ -39,23 +33,17 @@ class OpenGL: public IGlib
         virtual void closeWindow();
         virtual int retrieveInput();
     private:
-        GLFWwindow *m_window;
-        Shader *m_shader;
-        unsigned int m_screen_width;
-        unsigned int m_screen_height;
-        static float m_vertices[];
-        static unsigned int m_indices[];
-        unsigned int m_vertexArray;
-        unsigned int m_vertexBuffer;
-        unsigned int m_elementBuffer;
-
-        void initialise();
-        static void error_callback(int error, const char *description);
+        SDL();
+        unsigned int m_width;
+        unsigned int m_height;
+        SDL_Window *m_window;
+        SDL_Renderer *m_renderer;
 };
 
 extern "C"
 {
     IGlib *create_renderer(unsigned int width, unsigned int height);
 }
+
 
 #endif

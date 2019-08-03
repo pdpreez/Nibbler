@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/03 13:22:26 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/03 14:42:13 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ Game &Game::operator=(Game const &rhs)
 
 Game::~Game()
 {
-    // delete[] snake;
-    // delete[] glib;
+    delete snake;
+    delete glib;
+    delete fruit;
 
 }
 
@@ -48,7 +49,7 @@ void Game::run()
     snake = new Snake(m_height / 4, m_width / 4);
     fruit = new Fruit(m_width, m_height);
 
-    glib = create_renderer("shared/OpenGL.so", m_width, m_height);
+    glib = create_renderer("shared/SDL.so", m_width, m_height);
     if (glib)
         glib->createWindow();
     auto start = getTime();
