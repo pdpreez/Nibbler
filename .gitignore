@@ -1,5 +1,7 @@
 .DS_STORE
 .vscode/
+obj/
+shared/
 includes/glad/
 includes/glfw/
 SDL*
