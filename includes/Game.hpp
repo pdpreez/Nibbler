@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/02 14:10:37 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/03 12:47:11 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 
 #include <vector>
 #include <chrono>
+#include <dlfcn.h>
 #include "Snake.hpp"
 #include "Fruit.hpp"
 #include "IGlib.hpp"
-#include "OpenGL.hpp"
-#include "SDL.hpp"
+
+typedef IGlib * (*createFunc)(unsigned int width, unsigned int height);
 
 class Game
 {
@@ -46,6 +47,7 @@ class Game
         void fps_delay();
         void collisions();
         void change_renderer(unsigned int key);
+        IGlib *create_renderer(std::string const &str, unsigned int width, unsigned int height);
 };
 
 #endif

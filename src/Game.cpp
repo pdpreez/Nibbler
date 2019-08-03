@@ -6,20 +6,22 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/02 14:15:18 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/03 13:22:26 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.hpp"
 
 Game::Game()
-:m_stayOpen(true), m_width(40), m_height(30), m_fps(15), m_renderer(2)
+:m_stayOpen(true), m_width(40), m_height(30), m_fps(15), m_renderer(0)
 {
+    glib = nullptr;
 }
 
 Game::Game(int width, int height)
-:m_stayOpen(true), m_width(width), m_height(height), m_fps(15), m_renderer(2)
+:m_stayOpen(true), m_width(width), m_height(height), m_fps(15), m_renderer(0)
 {
+    glib = nullptr;
 }
 
 Game::Game(Game const &rhs)
@@ -45,8 +47,10 @@ void Game::run()
 {
     snake = new Snake(m_height / 4, m_width / 4);
     fruit = new Fruit(m_width, m_height);
-    glib = new class SDL(m_width, m_height);
-    glib->createWindow();
+
+    glib = create_renderer("shared/OpenGL.so", m_width, m_height);
+    if (glib)
+        glib->createWindow();
     auto start = getTime();
     while (m_stayOpen)
     {
@@ -80,7 +84,7 @@ void Game::process_input()
     key = glib->retrieveInput();
     if (key == EXIT)
         m_stayOpen = false;
-    if (key == OPENGL_R || key == SDL_R)
+    if (key == OPENGL_KEY || key == SDL_KEY)
         change_renderer(key);
 
     snake->move(key);
@@ -102,7 +106,7 @@ void Game::collisions()
     int y = snake->getY();
     if (x == fruit->getX() && y == fruit->getY())
     {
-        m_fps += 2;
+        // m_fps += 2;
         snake->grow();
         fruit->reroll();
     }
@@ -119,21 +123,36 @@ void Game::collisions()
 
 void Game::change_renderer(unsigned int key)
 {
-    if (key == OPENGL_R && m_renderer != key)
+    std::string path = "shared/";
+    if (m_renderer != key)
     {
+        if (key == OPENGL_KEY)
+            path += "OpenGL.so";
+        else if (key == SDL_KEY)
+            path += "SDL.so";
         glib->closeWindow();
         delete glib;
-        glib = new class OpenGL(m_width, m_height);
+        try 
+        {
+            glib = create_renderer("shared/SDL.so", m_width, m_height);
+        }
+        catch (std::exception &e)
+        {
+            m_stayOpen = false;
+            return ;
+        }
         glib->createWindow();
         m_renderer = key;
+    }
+}
 
-    }
-    else if (key == SDL_R && m_renderer != key)
-    {
-        glib->closeWindow();
-        delete glib;
-        glib = new class SDL(m_width, m_height);
-        glib->createWindow();
-        m_renderer = key;
-    }
+IGlib *Game::create_renderer(std::string const &str, unsigned int width, unsigned int height)
+{
+    void *handle = dlopen(str.c_str(), RTLD_NOW | RTLD_GLOBAL);
+    if (!handle)
+        throw std::exception();
+    createFunc func = (createFunc)dlsym(handle, "create_renderer");
+    if (!func)
+        throw std::exception();
+    return (*func)(width, height);
 }

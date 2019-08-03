@@ -6,13 +6,14 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:59:07 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/02 15:01:02 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/03 12:36:10 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "OpenGL.hpp"
 
 // Globals and statics
+
 
 float OpenGL::m_vertices[] = 
 {
@@ -165,9 +166,9 @@ int OpenGL::retrieveInput()
     if (glfwGetKey(m_window, GLFW_KEY_RIGHT) == GLFW_PRESS)
         return RIGHT;
     if (glfwGetKey(m_window, GLFW_KEY_1) == GLFW_PRESS)
-        return OPENGL_R;
+        return OPENGL_KEY;
     if (glfwGetKey(m_window, GLFW_KEY_2) == GLFW_PRESS)
-        return SDL_R;
+        return SDL_KEY;
     else
         return NONE;
 }
@@ -205,4 +206,12 @@ void OpenGL::drawSquare(unsigned int x, unsigned int y, struct s_color color)
     m_shader->setVec3("pos", x, y, 0.0);
     m_shader->use();
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}
+
+extern "C"
+{
+    IGlib *create_renderer(unsigned int width, unsigned int height)
+    {
+        return new OpenGL(width, height);
+    }
 }

@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 10:27:24 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/02 13:46:39 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/03 11:27:39 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ enum keys
 {
     NONE = -1,
     EXIT = 0,
-    OPENGL_R = 1,
-    SDL_R = 2,
-    SFML_R = 3,
+    OPENGL_KEY = 1,
+    SDL_KEY = 2,
+    SFML_KEY = 3,
     UP = 100,
     RIGHT = 101,
     DOWN = 102,

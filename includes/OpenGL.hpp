@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:23:26 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/02 09:24:22 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/03 11:20:01 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include "IGlib.hpp"
 #include "Shader.hpp"
 #include <iostream>
+
+class Shader;
 
 class OpenGL: public IGlib
 {
@@ -51,5 +53,10 @@ class OpenGL: public IGlib
         void initialise();
         static void error_callback(int error, const char *description);
 };
+
+extern "C"
+{
+    IGlib *create_renderer(unsigned int width, unsigned int height);
+}
 
 #endif
