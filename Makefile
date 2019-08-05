@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/08/05 13:38:39 by ppreez           ###   ########.fr        #
+#    Updated: 2019/08/05 15:53:19 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,9 @@ SDL_URL = https://www.libsdl.org/release/$(SDL_TAR)
 SDL_INC = -I ~/.brew/include/SDL2/
 SDLA_INC = $(DEP_PATH)/SDL_BUILD/libSDL2.a $(DEP_PATH)/SDL_BUILD/libSDL2main.a -framework AudioToolbox -framework CoreVideo -framework Carbon -framework ForceFeedback -framework IOKit -framework Cocoa -framework CoreAudio -liconv -lm  -Wl,-current_version,10.0.0 -Wl,-compatibility_version,1.0.0 -Wl,-undefined,error
 SDL_H_PATH = ~/.brew/include/SDL2/
+
+SFML_INC = -I ~/.brew/include/
+SFMLA_INC = -F frameworks -framework sfml-window -framework sfml-graphics -framework sfml-audio -framework sfml-network -framework sfml-system
 
 all: $(NAME) 
 
@@ -85,6 +88,11 @@ opengl: glad_install
 	$(CC) -c $(SRC_PATH)Shader.cpp -o $(OBJ_PATH)Shader.o -I $(INC_PATH) $(GLAD_INC) $(GLFW_INC)
 	$(CC) -shared $(OBJ_PATH)OpenGL.o $(OBJ_PATH)Shader.o $(OBJ_PATH)glad.o -o $(SO_PATH)OpenGL.so $(GLFWA_INC) $(GLFW)
 
+sfml: #sfml_install
+	$(CC) -c $(SRC_PATH)SFML.cpp -o $(OBJ_PATH)sfml.o -I $(INC_PATH) $(SFML_INC)
+	$(CC) -shared $(OBJ_PATH)sfml.o -o $(SFML_PATH)SFML.so $(SFMLA_INC)
+
+
 glad_install: $(DEP_PATH)/glad/src/glad.c $(OBJ_PATH)
 	gcc -I $(DEP_PATH)/glad/include/ -c $(DEP_PATH)/glad/src/glad.c -o ./obj/glad.o
 
@@ -100,6 +108,8 @@ sdl_install:
 sfml_install:
 	mkdir -p $(DEP_PATH)/SFML_BUILD
 	$(CMAKE) -S $(DEP_PATH)/SFML -B $(DEP_PATH)/SFML_BUILD
+	#make install -C $(DEP_PATH)/SFML_BUILD
+	make -C $(DEP_PATH)/SFML_BUILD
 
 cmake_install:
 	#~/.brew/bin/brew install cmake
