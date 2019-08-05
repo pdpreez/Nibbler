@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 14:14:42 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/03 15:02:52 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/05 13:05:31 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,20 @@ void SDL::refresh()
 
 void SDL::startFrame()
 {
-    SDL_SetRenderDrawColor(m_renderer, 0, 50, 50, 255);
+    SDL_SetRenderDrawColor(m_renderer, 0, 30, 30, 255);
     SDL_RenderClear(m_renderer);
 }
 
 void SDL::drawSquare(unsigned int x, unsigned int y, struct s_color color)
 {
-    int x2 = static_cast<int>(x / m_height);
-    int y2 = static_cast<int>(y / m_width);
-    SDL_Rect fillrect = {x2, y2, x2 * 20, y2 * 20};
-    SDL_SetRenderDrawColor(m_renderer, static_cast<float>(color.r / 255), static_cast<float>(color.g), static_cast<float>(color.b), static_cast<float>(color.a));
+    // x += y;
+    
+    int xpos = static_cast<int>(x * 20);
+    int ypos = static_cast<int>(m_height - (y + 1) * 20);
+    int xsize = static_cast<int>(20);
+    int ysize = static_cast<int>(20);
+    SDL_Rect fillrect = {xpos, ypos, xsize, ysize};
+    SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
     SDL_RenderFillRect(m_renderer, &fillrect);
 }
 
@@ -88,20 +92,23 @@ int SDL::retrieveInput()
     SDL_Event e;
     while (SDL_PollEvent(&e))
     {
-        if (e.type == SDL_QUIT)
-            return EXIT;
-        else if (e.key.keysym.sym == SDLK_1)
-            return OPENGL_KEY;
-        else if (e.key.keysym.sym == SDLK_2)
-            return SDL_KEY;
-        else if (e.key.keysym.sym == SDLK_UP)
-            return UP;
-        else if (e.key.keysym.sym == SDLK_RIGHT)
-            return RIGHT;
-        else if (e.key.keysym.sym == SDLK_DOWN)
-            return DOWN;
-        else if (e.key.keysym.sym == SDLK_LEFT)
-            return LEFT;
+        if (e.type == SDL_KEYDOWN)
+        {
+            if (e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE)
+                return EXIT;
+            else if (e.key.keysym.sym == SDLK_1)
+                return OPENGL_KEY;
+            else if (e.key.keysym.sym == SDLK_2)
+                return SDL_KEY;
+            else if (e.key.keysym.sym == SDLK_UP)
+                return UP;
+            else if (e.key.keysym.sym == SDLK_RIGHT)
+                return RIGHT;
+            else if (e.key.keysym.sym == SDLK_DOWN)
+                return DOWN;
+            else if (e.key.keysym.sym == SDLK_LEFT)
+                return LEFT;
+        }
     }
     return NONE;
 }

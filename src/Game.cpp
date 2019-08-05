@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/03 14:42:13 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/05 12:54:43 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void Game::run()
     snake = new Snake(m_height / 4, m_width / 4);
     fruit = new Fruit(m_width, m_height);
 
-    glib = create_renderer("shared/SDL.so", m_width, m_height);
+    glib = create_renderer("shared/OpenGL.so", m_width, m_height);
     if (glib)
         glib->createWindow();
     auto start = getTime();
@@ -80,14 +80,12 @@ void Game::run()
 
 void Game::process_input()
 {
-    
     unsigned int key;
     key = glib->retrieveInput();
     if (key == EXIT)
         m_stayOpen = false;
     if (key == OPENGL_KEY || key == SDL_KEY)
         change_renderer(key);
-
     snake->move(key);
 }
 
@@ -107,7 +105,7 @@ void Game::collisions()
     int y = snake->getY();
     if (x == fruit->getX() && y == fruit->getY())
     {
-        // m_fps += 2;
+        m_fps += 2;
         snake->grow();
         fruit->reroll();
     }
@@ -135,7 +133,7 @@ void Game::change_renderer(unsigned int key)
         delete glib;
         try 
         {
-            glib = create_renderer("shared/SDL.so", m_width, m_height);
+            glib = create_renderer(path, m_width, m_height);
         }
         catch (std::exception &e)
         {
