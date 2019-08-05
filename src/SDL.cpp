@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 14:14:42 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/05 13:05:31 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/05 13:06:42 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void SDL::drawSquare(unsigned int x, unsigned int y, struct s_color color)
     SDL_Rect fillrect = {xpos, ypos, xsize, ysize};
     SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
     SDL_RenderFillRect(m_renderer, &fillrect);
+    SDL_SetRenderDrawColor(m_renderer, color.r / 2, color.g / 2, color.b / 2, color.a);
+    SDL_RenderDrawRect(m_renderer, &fillrect);
 }
 
 void SDL::endFrame()

@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/08/03 14:35:35 by ppreez           ###   ########.fr        #
+#    Updated: 2019/08/05 13:38:39 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,10 @@ sdl_install:
 	$(CMAKE) -S $(DEP_PATH)/SDL_SRC  -B $(DEP_PATH)/SDL_BUILD
 	make install -C $(DEP_PATH)/SDL_BUILD
 	make -C $(DEP_PATH)/SDL_BUILD
+
+sfml_install:
+	mkdir -p $(DEP_PATH)/SFML_BUILD
+	$(CMAKE) -S $(DEP_PATH)/SFML -B $(DEP_PATH)/SFML_BUILD
 
 cmake_install:
 	#~/.brew/bin/brew install cmake

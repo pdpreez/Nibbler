@@ -4,3 +4,6 @@
 [submodule "dependencies/glad"]
 	path = dependencies/glad
 	url = https://github.com/pdpreez/glad.git
+[submodule "dependencies/SFML"]
+	path = dependencies/SFML
+	url = https://github.com/SFML/SFML.git
