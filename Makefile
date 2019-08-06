@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/08/06 11:29:21 by ppreez           ###   ########.fr        #
+#    Updated: 2019/08/06 14:57:46 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,12 +41,15 @@ SDL_INC = -I ~/.brew/include/SDL2/
 SDLA_INC = $(DEP_PATH)/SDL_BUILD/libSDL2.a $(DEP_PATH)/SDL_BUILD/libSDL2main.a -framework AudioToolbox -framework CoreVideo -framework Carbon -framework ForceFeedback -framework IOKit -framework Cocoa -framework CoreAudio -liconv -lm  -Wl,-current_version,10.0.0 -Wl,-compatibility_version,1.0.0 -Wl,-undefined,error
 SDL_H_PATH = ~/.brew/include/SDL2/
 
+SFML_DIR = SFML-2.5.1-macOS-clang
+SFML_URL = https://www.sfml-dev.org/files/$(SFML_TAR)
+SFML_TAR = $(SFML_DIR).tar.gz
 SFML_INC = -I ./msfml/include
 SFMLA_INC = -F msfml/Frameworks -Wl,-rpath,$(PWD)/msfml/Frameworks -framework sfml-graphics -framework sfml-audio -framework sfml-network -framework sfml-window -framework sfml-system
 
 all: $(NAME) 
 
-install: $(OBJ_PATH) setup glad_install cmake_install sdl_install
+install: $(OBJ_PATH) setup glad_install cmake_install sdl_install sfml_install
 
 homebrew:
 	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
@@ -88,7 +91,7 @@ opengl: glad_install
 	$(CC) -c $(SRC_PATH)Shader.cpp -o $(OBJ_PATH)Shader.o -I $(INC_PATH) $(GLAD_INC) $(GLFW_INC)
 	$(CC) -shared $(OBJ_PATH)OpenGL.o $(OBJ_PATH)Shader.o $(OBJ_PATH)glad.o -o $(SO_PATH)OpenGL.so $(GLFWA_INC) $(GLFW)
 
-sfml: #sfml_install
+sfml:
 	$(CC) -c $(SRC_PATH)SFML.cpp -o $(OBJ_PATH)sfml.o -I $(INC_PATH) $(SFML_INC)
 	$(CC) -shared $(OBJ_PATH)sfml.o -o $(SO_PATH)SFML.so $(SFMLA_INC)
 
@@ -105,10 +108,12 @@ sdl_install:
 	make -C $(DEP_PATH)/SDL_BUILD
 
 sfml_install:
-	mkdir -p $(DEP_PATH)/SFML_BUILD
-	$(CMAKE) -S $(DEP_PATH)/SFML -B $(DEP_PATH)/SFML_BUILD
-	#make install -C $(DEP_PATH)/SFML_BUILD
-	make -C $(DEP_PATH)/SFML_BUILD
+	mkdir -p msfml
+	curl -O $(SFML_URL)
+	tar -xf $(SFML_TAR)
+	cp -rf ./$(SFML_DIR)/* ./msfml
+	cp -rf ./$(SFML_DIR)/extlibs/* ./msfml/Frameworks/
+
 
 cmake_install:
 	#~/.brew/bin/brew install cmake

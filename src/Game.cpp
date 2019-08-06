@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 13:40:53 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 14:56:02 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void Game::run()
     snake = new Snake(m_height / 4, m_width / 4);
     fruit = new Fruit(m_width, m_height);
 
-    glib = create_renderer("shared/SFML.so", m_width, m_height, m_size);
+    glib = create_renderer("shared/OpenGL.so", m_width, m_height, m_size);
     if (glib)
         glib->createWindow();
     auto start = getTime();
@@ -67,6 +67,8 @@ void Game::run()
         }
         start = current;
         process_input();
+        if (m_stayOpen == false)
+            break ;
         collisions();
         glib->startFrame();
         glib->drawSquare(snake->getX(), snake->getY(), snake->getColor());

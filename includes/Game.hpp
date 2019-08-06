@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 09:51:03 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 14:44:52 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 #include <vector>
 #include <chrono>
 #include <dlfcn.h>
+#include <iostream>
 #include "Snake.hpp"
 #include "Fruit.hpp"
 #include "IGlib.hpp"
-
 typedef IGlib * (*createFunc)(unsigned int width, unsigned int height, unsigned int size);
 
 class Game

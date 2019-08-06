@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:59:07 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 13:36:22 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 13:53:06 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ void OpenGL::initialise()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    // glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     glfwSetErrorCallback(error_callback);
     
 }
@@ -154,7 +153,7 @@ void OpenGL::closeWindow()
 int OpenGL::retrieveInput()
 {
     if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        return 0;
+        return EXIT;
     if (glfwGetKey(m_window, GLFW_KEY_UP) == GLFW_PRESS)
         return UP;
     if (glfwGetKey(m_window, GLFW_KEY_DOWN) == GLFW_PRESS)
