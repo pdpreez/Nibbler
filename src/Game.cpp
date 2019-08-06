@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 14:56:02 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 15:43:06 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ Game::~Game()
 
 void Game::run()
 {
-    snake = new Snake(m_height / 4, m_width / 4);
+    snake = new Snake(m_width / 2, m_height / 2);
     fruit = new Fruit(m_width, m_height);
 
     glib = create_renderer("shared/OpenGL.so", m_width, m_height, m_size);
@@ -67,7 +67,7 @@ void Game::run()
         }
         start = current;
         process_input();
-        if (m_stayOpen == false)
+        if (!m_stayOpen)
             break ;
         collisions();
         glib->startFrame();
@@ -79,7 +79,8 @@ void Game::run()
         glib->drawSquare(fruit->getX(), fruit->getY(), fruit->getColor());
         glib->endFrame();
     }
-    glib->closeWindow();
+    if (glib)
+        glib->closeWindow();
 }
 
 void Game::process_input()
@@ -96,11 +97,6 @@ void Game::process_input()
 std::chrono::milliseconds Game::getTime() const
 {
     return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch());
-}
-
-void Game::fps_delay()
-{
-    
 }
 
 void Game::collisions()
@@ -137,12 +133,10 @@ void Game::change_renderer(unsigned int key)
             path += "SFML.so";
         glib->closeWindow();
         delete glib;
-        try 
+        glib = create_renderer(path, m_width, m_height, m_size);
+        if (!glib)
         {
-            glib = create_renderer(path, m_width, m_height, m_size);
-        }
-        catch (std::exception &e)
-        {
+            std::cout << "Error: Could not open file " << path.erase(0, 7) << std::endl;
             m_stayOpen = false;
             return ;
         }
@@ -155,9 +149,9 @@ IGlib *Game::create_renderer(std::string const &str, unsigned int width, unsigne
 {
     void *handle = dlopen(str.c_str(), RTLD_NOW | RTLD_GLOBAL);
     if (!handle)
-        throw std::exception();
+        return nullptr;
     createFunc func = (createFunc)dlsym(handle, "create_renderer");
     if (!func)
-        throw std::exception();
+        return nullptr;
     return (*func)(width, height, size);
 }

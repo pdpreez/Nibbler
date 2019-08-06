@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 13:43:24 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 13:45:43 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 15:35:31 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,6 @@ void SFML::startFrame()
 void SFML::endFrame()
 {
     m_window.display();
-}
-
-void SFML::refresh()
-{
-
 }
 
 extern "C"

@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:59:07 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 13:53:06 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 15:35:42 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,10 +170,6 @@ int OpenGL::retrieveInput()
         return SFML_KEY;
     else
         return NONE;
-}
-
-void OpenGL::refresh()
-{
 }
 
 void OpenGL::startFrame()

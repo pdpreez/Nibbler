@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 14:44:52 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 15:35:14 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ class Game
 
         std::chrono::milliseconds getTime() const;
         void process_input();
-        void fps_delay();
         void collisions();
         void change_renderer(unsigned int key);
         IGlib *create_renderer(std::string const &str, unsigned int width, unsigned int height, unsigned int size);

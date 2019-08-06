@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 14:11:19 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 09:41:25 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 15:35:25 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ class SDL: public IGlib
         SDL &operator=(SDL const &rhs);
         virtual ~SDL();
 
-        virtual void refresh();
         virtual void startFrame();
         virtual void endFrame();
         virtual void drawSquare(unsigned int x, unsigned int y, struct s_color color);

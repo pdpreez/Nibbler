@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 13:42:51 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 13:19:27 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 15:35:23 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ class SFML: public IGlib
         SFML &operator=(SFML const &rhs);
         virtual ~SFML();
 
-        virtual void refresh();
         virtual void startFrame();
         virtual void endFrame();
         virtual void drawSquare(unsigned int x, unsigned int y, struct s_color color);

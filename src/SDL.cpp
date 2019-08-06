@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 14:14:42 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 13:36:43 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 15:35:36 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,6 @@ void SDL::closeWindow()
     SDL_DestroyRenderer(m_renderer);
     SDL_DestroyWindow(m_window);
     SDL_Quit();
-}
-
-void SDL::refresh()
-{
-    
 }
 
 void SDL::startFrame()
