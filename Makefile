@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/08/06 14:57:46 by ppreez           ###   ########.fr        #
+#    Updated: 2019/08/06 15:04:34 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -123,7 +123,9 @@ cmake_install:
 clean:
 	/bin/rm -rf $(OBJ)
 	/bin/rm -rf obj/glad.o
-	/bin/rm -rf $(SO_PATH)%.so
+	/bin/rm -rf $(SO_PATH)OpenGL.so
+	/bin/rm -rf $(SO_PATH)SDL.so
+	/bin/rm -rf $(SO_PATH)SFML.so
 
 fclean: clean
 	/bin/rm $(NAME)
