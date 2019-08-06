@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/03 12:47:11 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 09:51:03 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "Fruit.hpp"
 #include "IGlib.hpp"
 
-typedef IGlib * (*createFunc)(unsigned int width, unsigned int height);
+typedef IGlib * (*createFunc)(unsigned int width, unsigned int height, unsigned int size);
 
 class Game
 {
@@ -39,6 +39,7 @@ class Game
         bool m_stayOpen;
         int m_width;
         int m_height;
+        int m_size;
         int m_fps;
         unsigned int m_renderer;
 
@@ -47,7 +48,7 @@ class Game
         void fps_delay();
         void collisions();
         void change_renderer(unsigned int key);
-        IGlib *create_renderer(std::string const &str, unsigned int width, unsigned int height);
+        IGlib *create_renderer(std::string const &str, unsigned int width, unsigned int height, unsigned int size);
 };
 
 #endif

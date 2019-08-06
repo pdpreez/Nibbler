@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 14:14:42 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/05 13:06:42 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 09:40:54 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 SDL::SDL()
 {}
 
-SDL::SDL(unsigned int width, unsigned int height)
-:m_width(width * 20), m_height(height * 20)
+SDL::SDL(unsigned int width, unsigned int height, unsigned int size)
+:m_width(width * size), m_height(height * size), m_size(size)
 {
 
 }
@@ -73,10 +73,10 @@ void SDL::drawSquare(unsigned int x, unsigned int y, struct s_color color)
 {
     // x += y;
     
-    int xpos = static_cast<int>(x * 20);
-    int ypos = static_cast<int>(m_height - (y + 1) * 20);
-    int xsize = static_cast<int>(20);
-    int ysize = static_cast<int>(20);
+    int xpos = static_cast<int>(x * m_size);
+    int ypos = static_cast<int>(m_height - (y + 1) * m_size);
+    int xsize = static_cast<int>(m_size);
+    int ysize = static_cast<int>(m_size);
     SDL_Rect fillrect = {xpos, ypos, xsize, ysize};
     SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
     SDL_RenderFillRect(m_renderer, &fillrect);
@@ -117,8 +117,8 @@ int SDL::retrieveInput()
 
 extern "C"
 {
-    IGlib *create_renderer(unsigned int width, unsigned int height)
+    IGlib *create_renderer(unsigned int width, unsigned int height, unsigned int size)
     {
-        return new SDL(width, height);
+        return new SDL(width, height, size);
     }
 }

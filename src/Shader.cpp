@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 08:18:19 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/05 12:01:15 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 09:29:02 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,11 @@ void Shader::use() const
  void Shader::setFloat(const std::string &name, float value) const
  {
      glUniform1f(glGetUniformLocation(id, name.c_str()), value);
+ }
+
+void Shader::setVec2(const std::string &name, float x, float y) const
+ {
+     glUniform2f(glGetUniformLocation(id, name.c_str()), x, y);
  }
 
  void Shader::setVec3(const std::string &name, float x, float y, float z) const

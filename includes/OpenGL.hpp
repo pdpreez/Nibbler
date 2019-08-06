@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:23:26 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/03 14:48:32 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 09:46:27 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ class Shader;
 class OpenGL: public IGlib
 {
     public:
-        OpenGL();
-        OpenGL(unsigned int width, unsigned int height);
+        OpenGL(unsigned int width, unsigned int height, unsigned int size);
         OpenGL(OpenGL const &rhs);
         OpenGL &operator=(OpenGL const &rhs);
         virtual ~OpenGL();
@@ -39,10 +38,13 @@ class OpenGL: public IGlib
         virtual void closeWindow();
         virtual int retrieveInput();
     private:
+        OpenGL();
         GLFWwindow *m_window;
         Shader *m_shader;
-        unsigned int m_screen_width;
-        unsigned int m_screen_height;
+        unsigned int m_grid_width;
+        unsigned int m_grid_height;
+        unsigned int m_pixel_width;
+        unsigned int m_pixel_height;
         static float m_vertices[];
         static unsigned int m_indices[];
         unsigned int m_vertexArray;
@@ -55,7 +57,7 @@ class OpenGL: public IGlib
 
 extern "C"
 {
-    IGlib *create_renderer(unsigned int width, unsigned int height);
+    IGlib *create_renderer(unsigned int width, unsigned int height, unsigned int size);
 }
 
 #endif

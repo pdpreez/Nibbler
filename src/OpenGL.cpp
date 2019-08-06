@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:59:07 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/05 14:50:38 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 09:49:02 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,40 @@
 // Globals and statics
 
 
-float OpenGL::m_vertices[] = 
-{
-     10.0,  1.0,
-     10.0, -1.0,
-    -10.0, -1.0,
-    -10.0,  1.0
-};
+// float OpenGL::m_vertices[] = 
+// {
+//      10.0,  1.0,
+//      10.0, -1.0,
+//     -10.0, -1.0,
+//     -10.0,  1.0
+// };
 
-unsigned int OpenGL::m_indices[] =
-{
-    0, 1, 3,
-    1, 2, 3
-};
+// unsigned int OpenGL::m_indices[] =
+// {
+//     0, 1, 3,
+//     1, 2, 3
+// };
 
-int g_key = 0;
+// int g_key = 0;
 
 
-void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
-{
-    (void)scancode;
-    (void)mods;
-    (void)window;
-    if (action == GLFW_PRESS)
-        g_key = key;
-}
+// void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
+// {
+//     (void)scancode;
+//     (void)mods;
+//     (void)window;
+//     if (action == GLFW_PRESS)
+//         g_key = key;
+// }
 
  // Constructors 
 
 OpenGL::OpenGL()
-:m_screen_width(800), m_screen_height(800)
 {
-    initialise();
 }
 
-OpenGL::OpenGL(unsigned int width, unsigned int height)
-:m_screen_width(width * 20), m_screen_height(height * 20)
+OpenGL::OpenGL(unsigned int width, unsigned int height, unsigned int size)
+:m_grid_width(width), m_grid_height(height), m_pixel_width(width * size), m_pixel_height(height * size)
 {
     initialise();
 }
@@ -118,7 +116,7 @@ void OpenGL::createWindow()
 };
 
 
-    m_window = glfwCreateWindow(m_screen_width, m_screen_height, "Nibbler", nullptr, nullptr);
+    m_window = glfwCreateWindow(m_pixel_width, m_pixel_height, "Nibbler", nullptr, nullptr);
     if (!m_window)
         throw std::exception();
     glfwMakeContextCurrent(m_window);
@@ -198,14 +196,15 @@ void OpenGL::drawSquare(unsigned int x, unsigned int y, struct s_color color)
     float b = static_cast<float>(color.b) / 255;
     m_shader->setVec3("color", r, g, b);
     m_shader->setVec3("pos", x, y, 0.0);
+    m_shader->setVec2("size", m_grid_width, m_grid_height);
     m_shader->use();
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
 extern "C"
 {
-    IGlib *create_renderer(unsigned int width, unsigned int height)
+    IGlib *create_renderer(unsigned int width, unsigned int height, unsigned int size)
     {
-        return new OpenGL(width, height);
+        return new OpenGL(width, height, size);
     }
 }

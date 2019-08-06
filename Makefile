@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/08/05 15:53:19 by ppreez           ###   ########.fr        #
+#    Updated: 2019/08/05 16:08:28 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,8 +89,8 @@ opengl: glad_install
 	$(CC) -shared $(OBJ_PATH)OpenGL.o $(OBJ_PATH)Shader.o $(OBJ_PATH)glad.o -o $(SO_PATH)OpenGL.so $(GLFWA_INC) $(GLFW)
 
 sfml: #sfml_install
-	$(CC) -c $(SRC_PATH)SFML.cpp -o $(OBJ_PATH)sfml.o -I $(INC_PATH) $(SFML_INC)
-	$(CC) -shared $(OBJ_PATH)sfml.o -o $(SFML_PATH)SFML.so $(SFMLA_INC)
+	$(CC) -c $(SRC_PATH)SFML.cpp -o $(OBJ_PATH)sfml.o -I $(INC_PATH) $(SFML_INC) $(SFMLA_INC)
+	$(CC) -shared $(OBJ_PATH)sfml.o -o $(SFML_PATH)SFML.so 
 
 
 glad_install: $(DEP_PATH)/glad/src/glad.c $(OBJ_PATH)

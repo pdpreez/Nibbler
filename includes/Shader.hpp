@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 08:18:10 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/03 10:58:20 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 09:29:26 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ class Shader
         void setBool(const std::string &name, bool value) const;
         void setInt(const std::string &name, int value) const;
         void setFloat(const std::string &name, float value) const;
+        void setVec2(const std::string &name, float x, float y) const;
         void setVec3(const std::string &name, float x, float y, float z) const;
         void setVec4(const std::string &name, float x, float y, float z, float w) const;
 

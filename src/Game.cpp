@@ -6,21 +6,23 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/05 14:58:21 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 09:53:41 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.hpp"
 
 Game::Game()
-:m_stayOpen(true), m_width(40), m_height(30), m_fps(15), m_renderer(0)
+:m_stayOpen(true), m_width(40), m_height(30), m_size(20), m_fps(15), m_renderer(0)
 {
     glib = nullptr;
 }
 
 Game::Game(int width, int height)
-:m_stayOpen(true), m_width(width), m_height(height), m_fps(15), m_renderer(0)
+:m_stayOpen(true), m_size(20), m_fps(15), m_renderer(0)
 {
+    m_width = std::clamp(width, 20, 50);
+    m_height = std::clamp(height, 20, 40);
     glib = nullptr;
 }
 
@@ -49,7 +51,7 @@ void Game::run()
     snake = new Snake(m_height / 4, m_width / 4);
     fruit = new Fruit(m_width, m_height);
 
-    glib = create_renderer("shared/OpenGL.so", m_width, m_height);
+    glib = create_renderer("shared/OpenGL.so", m_width, m_height, m_size);
     if (glib)
         glib->createWindow();
     auto start = getTime();
@@ -133,7 +135,7 @@ void Game::change_renderer(unsigned int key)
         delete glib;
         try 
         {
-            glib = create_renderer(path, m_width, m_height);
+            glib = create_renderer(path, m_width, m_height, m_size);
         }
         catch (std::exception &e)
         {
@@ -145,7 +147,7 @@ void Game::change_renderer(unsigned int key)
     }
 }
 
-IGlib *Game::create_renderer(std::string const &str, unsigned int width, unsigned int height)
+IGlib *Game::create_renderer(std::string const &str, unsigned int width, unsigned int height, unsigned int size)
 {
     void *handle = dlopen(str.c_str(), RTLD_NOW | RTLD_GLOBAL);
     if (!handle)
@@ -153,5 +155,5 @@ IGlib *Game::create_renderer(std::string const &str, unsigned int width, unsigne
     createFunc func = (createFunc)dlsym(handle, "create_renderer");
     if (!func)
         throw std::exception();
-    return (*func)(width, height);
+    return (*func)(width, height, size);
 }

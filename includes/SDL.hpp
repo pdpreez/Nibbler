@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 14:11:19 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/05 11:23:41 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 09:41:25 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 class SDL: public IGlib
 {
     public:
-        SDL(unsigned int width, unsigned int height);
+        SDL(unsigned int width, unsigned int height, unsigned int size);
         SDL(SDL const &rhs);
         SDL &operator=(SDL const &rhs);
         virtual ~SDL();
@@ -36,13 +36,14 @@ class SDL: public IGlib
         SDL();
         unsigned int m_width;
         unsigned int m_height;
+        unsigned int m_size;
         SDL_Window *m_window;
         SDL_Renderer *m_renderer;
 };
 
 extern "C"
 {
-    IGlib *create_renderer(unsigned int width, unsigned int height);
+    IGlib *create_renderer(unsigned int width, unsigned int height, unsigned int size);
 }
 
 
