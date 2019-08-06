@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:59:07 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 09:49:02 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 13:36:22 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ int OpenGL::retrieveInput()
         return OPENGL_KEY;
     if (glfwGetKey(m_window, GLFW_KEY_2) == GLFW_PRESS)
         return SDL_KEY;
+    if (glfwGetKey(m_window, GLFW_KEY_3) == GLFW_PRESS)
+        return SFML_KEY;
     else
         return NONE;
 }

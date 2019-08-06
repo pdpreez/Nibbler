@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 13:42:51 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/05 15:59:21 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 13:19:27 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 #define SFML_HPP
 
 #include "IGlib.hpp"
-#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
 
 class SFML: public IGlib
 {
     public:
-        SFML(unsigned int width, unsigned int height);
+        SFML(unsigned int width, unsigned int height, unsigned int size);
         SFML(SFML const &rhs);
         SFML &operator=(SFML const &rhs);
         virtual ~SFML();
@@ -32,10 +32,18 @@ class SFML: public IGlib
         virtual void closeWindow();
         virtual int retrieveInput();
     private:
-        sf::Window m_window;
-        unsigned int m_width;
-        unsigned int m_height;
+        sf::RenderWindow m_window;
+        unsigned int m_grid_width;
+        unsigned int m_grid_height;
+        unsigned int m_screen_width;
+        unsigned int m_screen_height;
+        unsigned int m_size;
         SFML();
 };
+
+extern "C"
+{
+    IGlib *create_renderer(unsigned int width, unsigned int height, unsigned int size);
+}
 
 #endif

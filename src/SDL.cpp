@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 14:14:42 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 09:40:54 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 13:36:43 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,6 @@ int SDL::retrieveInput()
         {
             if (e.type == SDL_QUIT || e.key.keysym.sym == SDLK_ESCAPE)
                 return EXIT;
-            else if (e.key.keysym.sym == SDLK_1)
-                return OPENGL_KEY;
-            else if (e.key.keysym.sym == SDLK_2)
-                return SDL_KEY;
             else if (e.key.keysym.sym == SDLK_UP)
                 return UP;
             else if (e.key.keysym.sym == SDLK_RIGHT)
@@ -110,6 +106,12 @@ int SDL::retrieveInput()
                 return DOWN;
             else if (e.key.keysym.sym == SDLK_LEFT)
                 return LEFT;
+            else if (e.key.keysym.sym == SDLK_1)
+                return OPENGL_KEY;
+            else if (e.key.keysym.sym == SDLK_2)
+                return SDL_KEY;
+            else if (e.key.keysym.sym == SDLK_3)
+                return SFML_KEY;
         }
     }
     return NONE;

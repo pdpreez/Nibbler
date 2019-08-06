@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 09:53:41 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/06 13:40:53 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void Game::run()
     snake = new Snake(m_height / 4, m_width / 4);
     fruit = new Fruit(m_width, m_height);
 
-    glib = create_renderer("shared/OpenGL.so", m_width, m_height, m_size);
+    glib = create_renderer("shared/SFML.so", m_width, m_height, m_size);
     if (glib)
         glib->createWindow();
     auto start = getTime();
@@ -86,7 +86,7 @@ void Game::process_input()
     key = glib->retrieveInput();
     if (key == EXIT)
         m_stayOpen = false;
-    if (key == OPENGL_KEY || key == SDL_KEY)
+    if (key == OPENGL_KEY || key == SDL_KEY || key == SFML_KEY)
         change_renderer(key);
     snake->move(key);
 }
@@ -131,6 +131,8 @@ void Game::change_renderer(unsigned int key)
             path += "OpenGL.so";
         else if (key == SDL_KEY)
             path += "SDL.so";
+        else if (key == SFML_KEY)
+            path += "SFML.so";
         glib->closeWindow();
         delete glib;
         try 

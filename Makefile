@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/08/05 16:08:28 by ppreez           ###   ########.fr        #
+#    Updated: 2019/08/06 11:29:21 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,8 +41,8 @@ SDL_INC = -I ~/.brew/include/SDL2/
 SDLA_INC = $(DEP_PATH)/SDL_BUILD/libSDL2.a $(DEP_PATH)/SDL_BUILD/libSDL2main.a -framework AudioToolbox -framework CoreVideo -framework Carbon -framework ForceFeedback -framework IOKit -framework Cocoa -framework CoreAudio -liconv -lm  -Wl,-current_version,10.0.0 -Wl,-compatibility_version,1.0.0 -Wl,-undefined,error
 SDL_H_PATH = ~/.brew/include/SDL2/
 
-SFML_INC = -I ~/.brew/include/
-SFMLA_INC = -F frameworks -framework sfml-window -framework sfml-graphics -framework sfml-audio -framework sfml-network -framework sfml-system
+SFML_INC = -I ./msfml/include
+SFMLA_INC = -F msfml/Frameworks -Wl,-rpath,$(PWD)/msfml/Frameworks -framework sfml-graphics -framework sfml-audio -framework sfml-network -framework sfml-window -framework sfml-system
 
 all: $(NAME) 
 
@@ -77,7 +77,7 @@ setup: $(DEP_PATH)
 	git submodule init
 	git submodule update
 
-shared_obj: sdl opengl
+shared_obj: sdl opengl sfml
 
 sdl:
 	$(CC) -c $(SRC_PATH)sdl.cpp -o $(OBJ_PATH)sdl.o -I $(SDL_H_PATH) -I $(INC_PATH)
@@ -89,9 +89,8 @@ opengl: glad_install
 	$(CC) -shared $(OBJ_PATH)OpenGL.o $(OBJ_PATH)Shader.o $(OBJ_PATH)glad.o -o $(SO_PATH)OpenGL.so $(GLFWA_INC) $(GLFW)
 
 sfml: #sfml_install
-	$(CC) -c $(SRC_PATH)SFML.cpp -o $(OBJ_PATH)sfml.o -I $(INC_PATH) $(SFML_INC) $(SFMLA_INC)
-	$(CC) -shared $(OBJ_PATH)sfml.o -o $(SFML_PATH)SFML.so 
-
+	$(CC) -c $(SRC_PATH)SFML.cpp -o $(OBJ_PATH)sfml.o -I $(INC_PATH) $(SFML_INC)
+	$(CC) -shared $(OBJ_PATH)sfml.o -o $(SO_PATH)SFML.so $(SFMLA_INC)
 
 glad_install: $(DEP_PATH)/glad/src/glad.c $(OBJ_PATH)
 	gcc -I $(DEP_PATH)/glad/include/ -c $(DEP_PATH)/glad/src/glad.c -o ./obj/glad.o
