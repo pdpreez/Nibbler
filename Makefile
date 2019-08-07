@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/08/06 15:04:34 by ppreez           ###   ########.fr        #
+#    Updated: 2019/08/07 11:49:34 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,13 +116,17 @@ sfml_install:
 
 
 cmake_install:
-	#~/.brew/bin/brew install cmake
+	~/.brew/bin/brew install cmake
 	~/.brew/Cellar/cmake/3.15.1/bin/cmake -S $(DEP_PATH)/glfw/ -B $(DEP_PATH)/glfw/
 	make -C $(DEP_PATH)/glfw/
 
 clean:
 	/bin/rm -rf $(OBJ)
 	/bin/rm -rf obj/glad.o
+	/bin/rm -rf $(OBJ_PATH)OpenGL.o
+	/bin/rm -rf $(OBJ_PATH)Shader.o
+	/bin/rm -rf $(OBJ_PATH)sdl.o
+	/bin/rm -rf $(OBJ_PATH)sfml.o
 	/bin/rm -rf $(SO_PATH)OpenGL.so
 	/bin/rm -rf $(SO_PATH)SDL.so
 	/bin/rm -rf $(SO_PATH)SFML.so
