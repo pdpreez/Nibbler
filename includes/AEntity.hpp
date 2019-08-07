@@ -6,14 +6,14 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:35:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/02 09:29:09 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/07 13:44:52 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AENTITY_HPP
 #define AENTITY_HPP
 
-#include "KeyCodes.hpp"
+#include "graphics/KeyCodes.hpp"
 struct s_color
 {
     unsigned char r;

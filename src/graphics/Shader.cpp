@@ -6,11 +6,11 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 08:18:19 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 09:29:02 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/07 13:47:28 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Shader.hpp"
+#include "graphics/Shader.hpp"
 
 Shader::Shader()
 {}

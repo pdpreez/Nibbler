@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:30:10 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/07 11:02:53 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/07 15:33:45 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int main(int argc, char **argv)
     std::cout << "Speed picked is : " << speed << std::endl;
     std::cout << "Should snake increase speed when eating fruit? [Y/N]" << std::endl;
     std::cin >> increase;
-    if ((increase != 'n' && increase != 'N') || increase == 'y')
-        increase = 'Y';
+    if ((increase != 'y' && increase != 'Y') || increase == 'n')
+        increase = 'N';
     if (argc == 3)
     {
         int a = atoi(argv[1]);

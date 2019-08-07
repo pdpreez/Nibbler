@@ -6,11 +6,11 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/05 13:43:24 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 15:35:31 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/07 15:08:10 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "SFML.hpp"
+#include "graphics/SFML.hpp"
 #include <iostream>
 
 SFML::SFML()

@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/07 11:08:15 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/07 15:30:12 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <iostream>
 #include "Snake.hpp"
 #include "Fruit.hpp"
-#include "IGlib.hpp"
+#include "graphics/IGlib.hpp"
 
 typedef IGlib * (*createFunc)(unsigned int width, unsigned int height, unsigned int size);
 
@@ -47,10 +47,12 @@ class Game
         int m_score;
         bool m_increase;
         unsigned int m_renderer;
+        void *m_handle;
 
         std::chrono::milliseconds getTime() const;
         void process_input();
         void collisions();
+        bool body_conflicts(int x, int y);
         void change_renderer(unsigned int key);
         IGlib *create_renderer(std::string const &str, unsigned int width, unsigned int height, unsigned int size);
 };

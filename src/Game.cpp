@@ -6,19 +6,20 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/07 11:35:27 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/07 15:33:33 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.hpp"
 
 Game::Game(int speed, char increase)
-:m_stayOpen(true), m_width(40), m_height(30), m_size(20), m_fps(speed + 14), m_speed(speed), m_score(0), m_renderer(0)
+:m_stayOpen(true), m_width(20), m_height(20), m_size(20), m_fps(speed + 14), m_speed(speed), m_score(0), m_renderer(0)
 {
     if (increase == 'Y' || increase == 'y')
         m_increase = true;
     else
         m_increase = false;
+    m_handle = nullptr;
     glib = nullptr;
 }
 
@@ -31,6 +32,7 @@ Game::Game(int width, int height, int speed, char increase)
         m_increase = false;
     m_width = std::clamp(width, 20, 50);
     m_height = std::clamp(height, 20, 40);
+    m_handle = nullptr;
     glib = nullptr;
 }
 
@@ -90,7 +92,7 @@ void Game::run()
     if (glib)
     {
         glib->closeWindow();
-        std::cout << "You died! Final score: " << m_score << std::endl;
+        std::cout << "Game over! Final score: " << m_score << std::endl;
     }
 }
 
@@ -123,17 +125,30 @@ void Game::collisions()
         }
         snake->grow();
         m_score += m_speed;
-        fruit->reroll();
+        while ((x == fruit->getX() && y == fruit->getY()) || body_conflicts(fruit->getX(), fruit->getY()))
+        {
+            fruit->reroll();
+        }
     }
     for (auto a = snake->m_body.begin(); a != snake->m_body.end(); a++)
     {
-        if (((*a)->getX() == x && (*a)->getY() == y) 
+        if (body_conflicts(x, y) 
         || (snake->getX() < 0 || snake->getX() >= m_width || snake->getY() < 0 || snake->getY() >= m_height ) 
         || (*a)->getX() < 0 || (*a)->getX() >= m_width || (*a)->getY() < 0 || (*a)->getY() >= m_height)
         {
             m_stayOpen = false;
         }
     }
+}
+
+bool Game::body_conflicts(int x, int y)
+{
+    for (auto a = snake->m_body.begin(); a != snake->m_body.end(); a++)
+    {
+        if ((*a)->getX() == x && (*a)->getY() == y)
+            return true;
+    }
+    return false;
 }
 
 void Game::change_renderer(unsigned int key)
@@ -163,11 +178,20 @@ void Game::change_renderer(unsigned int key)
 
 IGlib *Game::create_renderer(std::string const &str, unsigned int width, unsigned int height, unsigned int size)
 {
-    void *handle = dlopen(str.c_str(), RTLD_NOW | RTLD_GLOBAL);
-    if (!handle)
+    if (m_handle)
+        dlclose(m_handle);
+    m_handle = dlopen(str.c_str(), RTLD_NOW | RTLD_GLOBAL);
+    char *errors;
+    if (!m_handle)
         return nullptr;
-    createFunc func = (createFunc)dlsym(handle, "create_renderer");
+    createFunc func = (createFunc)dlsym(m_handle, "create_renderer");
     if (!func)
         return nullptr;
+    errors = dlerror();
+    if (errors)
+    {
+        std::cout << "Dynamic linking error: " << errors << std::endl;
+        return nullptr;
+    }
     return (*func)(width, height, size);
 }

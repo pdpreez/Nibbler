@@ -6,40 +6,11 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 12:59:07 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 15:35:42 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/07 15:06:41 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "OpenGL.hpp"
-
-// Globals and statics
-
-
-// float OpenGL::m_vertices[] = 
-// {
-//      10.0,  1.0,
-//      10.0, -1.0,
-//     -10.0, -1.0,
-//     -10.0,  1.0
-// };
-
-// unsigned int OpenGL::m_indices[] =
-// {
-//     0, 1, 3,
-//     1, 2, 3
-// };
-
-// int g_key = 0;
-
-
-// void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
-// {
-//     (void)scancode;
-//     (void)mods;
-//     (void)window;
-//     if (action == GLFW_PRESS)
-//         g_key = key;
-// }
+#include "graphics/OpenGL.hpp"
 
  // Constructors 
 

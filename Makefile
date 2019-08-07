@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/08/07 11:49:34 by ppreez           ###   ########.fr        #
+#    Updated: 2019/08/07 15:56:11 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC_PATH = ./src/
 OBJ_PATH = ./obj/
 INC_PATH = ./includes/
 SO_PATH = ./shared/
+G_SRC_PATH = $(SRC_PATH)graphics/
 DEP_PATH = ./dependencies
 
 SRC_FILE = main.cpp Game.cpp AEntity.cpp Snake.cpp Body.cpp Fruit.cpp
@@ -49,7 +50,10 @@ SFMLA_INC = -F msfml/Frameworks -Wl,-rpath,$(PWD)/msfml/Frameworks -framework sf
 
 all: $(NAME) 
 
-install: $(OBJ_PATH) setup glad_install cmake_install sdl_install sfml_install
+install: $(OBJ_PATH) setup glad_install sdl_install sfml_install
+
+cmake:
+	cmake_install
 
 homebrew:
 	sh -c "$$(curl -fsSL https://raw.githubusercontent.com/Tolsadus/42homebrewfix/master/install.sh)"
@@ -83,19 +87,21 @@ setup: $(DEP_PATH)
 shared_obj: sdl opengl sfml
 
 sdl:
-	$(CC) -c $(SRC_PATH)sdl.cpp -o $(OBJ_PATH)sdl.o -I $(SDL_H_PATH) -I $(INC_PATH)
+	$(CC) -c $(G_SRC_PATH)sdl.cpp -o $(OBJ_PATH)sdl.o -I $(SDL_H_PATH) -I $(INC_PATH)
 	$(CC) -shared $(OBJ_PATH)sdl.o -o $(SO_PATH)SDL.so $(SDLA_INC)
 
-opengl: glad_install
-	$(CC) -c $(SRC_PATH)OpenGL.cpp -o $(OBJ_PATH)OpenGL.o -I $(INC_PATH) $(GLAD_INC) $(GLFW_INC)
-	$(CC) -c $(SRC_PATH)Shader.cpp -o $(OBJ_PATH)Shader.o -I $(INC_PATH) $(GLAD_INC) $(GLFW_INC)
+opengl:
+	$(CC) -c $(G_SRC_PATH)OpenGL.cpp -o $(OBJ_PATH)OpenGL.o -I $(INC_PATH) $(GLAD_INC) $(GLFW_INC)
+	$(CC) -c $(G_SRC_PATH)Shader.cpp -o $(OBJ_PATH)Shader.o -I $(INC_PATH) $(GLAD_INC) $(GLFW_INC)
 	$(CC) -shared $(OBJ_PATH)OpenGL.o $(OBJ_PATH)Shader.o $(OBJ_PATH)glad.o -o $(SO_PATH)OpenGL.so $(GLFWA_INC) $(GLFW)
 
 sfml:
-	$(CC) -c $(SRC_PATH)SFML.cpp -o $(OBJ_PATH)sfml.o -I $(INC_PATH) $(SFML_INC)
+	$(CC) -c $(G_SRC_PATH)SFML.cpp -o $(OBJ_PATH)sfml.o -I $(INC_PATH) $(SFML_INC)
 	$(CC) -shared $(OBJ_PATH)sfml.o -o $(SO_PATH)SFML.so $(SFMLA_INC)
 
 glad_install: $(DEP_PATH)/glad/src/glad.c $(OBJ_PATH)
+	~/.brew/Cellar/cmake/3.15.1/bin/cmake -S $(DEP_PATH)/glfw/ -B $(DEP_PATH)/glfw/
+	make -C $(DEP_PATH)/glfw/
 	gcc -I $(DEP_PATH)/glad/include/ -c $(DEP_PATH)/glad/src/glad.c -o ./obj/glad.o
 
 sdl_install:
@@ -117,8 +123,6 @@ sfml_install:
 
 cmake_install:
 	~/.brew/bin/brew install cmake
-	~/.brew/Cellar/cmake/3.15.1/bin/cmake -S $(DEP_PATH)/glfw/ -B $(DEP_PATH)/glfw/
-	make -C $(DEP_PATH)/glfw/
 
 clean:
 	/bin/rm -rf $(OBJ)
@@ -132,7 +136,10 @@ clean:
 	/bin/rm -rf $(SO_PATH)SFML.so
 
 fclean: clean
-	/bin/rm $(NAME)
+	/bin/rm -rf $(NAME)
+	/bin/rm -rf $(SFML_TAR)
+	/bin/rm -rf $(SDL_TAR)
+	/bin/rm -rf $(SFML_DIR)
 
 re: fclean all
 

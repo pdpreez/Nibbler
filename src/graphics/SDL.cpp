@@ -6,11 +6,11 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 14:14:42 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/07 10:39:20 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/07 15:12:52 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "SDL.hpp"
+#include "graphics/SDL.hpp"
 
 SDL::SDL()
 {}
