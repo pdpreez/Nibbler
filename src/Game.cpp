@@ -6,21 +6,29 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 15:43:06 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/07 11:35:27 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.hpp"
 
-Game::Game()
-:m_stayOpen(true), m_width(40), m_height(30), m_size(20), m_fps(15), m_renderer(0)
+Game::Game(int speed, char increase)
+:m_stayOpen(true), m_width(40), m_height(30), m_size(20), m_fps(speed + 14), m_speed(speed), m_score(0), m_renderer(0)
 {
+    if (increase == 'Y' || increase == 'y')
+        m_increase = true;
+    else
+        m_increase = false;
     glib = nullptr;
 }
 
-Game::Game(int width, int height)
-:m_stayOpen(true), m_size(20), m_fps(15), m_renderer(0)
+Game::Game(int width, int height, int speed, char increase)
+:m_stayOpen(true), m_size(20), m_fps(speed + 14), m_speed(speed), m_score(0), m_renderer(0)
 {
+    if (increase == 'Y' || increase == 'y')
+        m_increase = true;
+    else
+        m_increase = false;
     m_width = std::clamp(width, 20, 50);
     m_height = std::clamp(height, 20, 40);
     glib = nullptr;
@@ -48,7 +56,7 @@ Game::~Game()
 
 void Game::run()
 {
-    snake = new Snake(m_width / 2, m_height / 2);
+    snake = new Snake(m_width / 3, m_height / 2);
     fruit = new Fruit(m_width, m_height);
 
     glib = create_renderer("shared/OpenGL.so", m_width, m_height, m_size);
@@ -80,7 +88,10 @@ void Game::run()
         glib->endFrame();
     }
     if (glib)
+    {
         glib->closeWindow();
+        std::cout << "You died! Final score: " << m_score << std::endl;
+    }
 }
 
 void Game::process_input()
@@ -105,8 +116,13 @@ void Game::collisions()
     int y = snake->getY();
     if (x == fruit->getX() && y == fruit->getY())
     {
-        m_fps += 2;
+        if (m_increase)
+        {
+            m_fps += 2;
+            m_speed += 2;
+        }
         snake->grow();
+        m_score += m_speed;
         fruit->reroll();
     }
     for (auto a = snake->m_body.begin(); a != snake->m_body.end(); a++)

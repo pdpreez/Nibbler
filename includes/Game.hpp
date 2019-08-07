@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:04 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 15:35:14 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/07 11:08:15 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,21 @@
 #include "Snake.hpp"
 #include "Fruit.hpp"
 #include "IGlib.hpp"
+
 typedef IGlib * (*createFunc)(unsigned int width, unsigned int height, unsigned int size);
 
 class Game
 {
     public:
-        Game();
-        Game(int width, int height);
+        Game(int width, int height, int speed, char increase);
+        Game(int speed, char increase);
         Game(Game const &rhs);
         Game &operator=(Game const &rhs);
         ~Game();
 
         void run();
     private:
+        Game();
         IGlib *glib;
         Snake *snake;
         Fruit *fruit;
@@ -41,6 +43,9 @@ class Game
         int m_height;
         int m_size;
         int m_fps;
+        int m_speed;
+        int m_score;
+        bool m_increase;
         unsigned int m_renderer;
 
         std::chrono::milliseconds getTime() const;

@@ -6,7 +6,7 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/03 14:14:42 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/06 15:35:36 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/07 10:39:20 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void SDL::createWindow()
         std::cout << "start frame" << std::endl;
         throw std::exception();
     }
-    m_window = SDL_CreateWindow("Nibbler", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_SHOWN);
+    m_window = SDL_CreateWindow("Nibbler", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_CENTERED, m_width, m_height, SDL_WINDOW_SHOWN);
     m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
 }
 
@@ -60,7 +60,7 @@ void SDL::closeWindow()
 
 void SDL::startFrame()
 {
-    SDL_SetRenderDrawColor(m_renderer, 0, 30, 30, 255);
+    SDL_SetRenderDrawColor(m_renderer, 200, 200, 200, 255);
     SDL_RenderClear(m_renderer);
 }
 
