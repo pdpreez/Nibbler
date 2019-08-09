@@ -6,13 +6,13 @@
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/14 11:32:38 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/07 15:33:33 by ppreez           ###   ########.fr       */
+/*   Updated: 2019/08/09 11:10:55 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Game.hpp"
 
-Game::Game(int speed, char increase)
+Game::Game(int speed, char increase, bool gen_obstacles)
 :m_stayOpen(true), m_width(20), m_height(20), m_size(20), m_fps(speed + 14), m_speed(speed), m_score(0), m_renderer(0)
 {
     if (increase == 'Y' || increase == 'y')
@@ -20,10 +20,11 @@ Game::Game(int speed, char increase)
     else
         m_increase = false;
     m_handle = nullptr;
+    m_gen_obstacles = gen_obstacles;
     glib = nullptr;
 }
 
-Game::Game(int width, int height, int speed, char increase)
+Game::Game(int width, int height, int speed, char increase, bool gen_obstacles)
 :m_stayOpen(true), m_size(20), m_fps(speed + 14), m_speed(speed), m_score(0), m_renderer(0)
 {
     if (increase == 'Y' || increase == 'y')
@@ -33,6 +34,7 @@ Game::Game(int width, int height, int speed, char increase)
     m_width = std::clamp(width, 20, 50);
     m_height = std::clamp(height, 20, 40);
     m_handle = nullptr;
+    m_gen_obstacles = gen_obstacles;
     glib = nullptr;
 }
 
@@ -60,7 +62,8 @@ void Game::run()
 {
     snake = new Snake(m_width / 3, m_height / 2);
     fruit = new Fruit(m_width, m_height);
-
+    if (m_gen_obstacles)
+        place_obstacles();
     glib = create_renderer("shared/OpenGL.so", m_width, m_height, m_size);
     if (glib)
         glib->createWindow();
@@ -82,6 +85,10 @@ void Game::run()
         collisions();
         glib->startFrame();
         glib->drawSquare(snake->getX(), snake->getY(), snake->getColor());
+        for (auto a = obstacles.begin(); a != obstacles.end(); a++)
+        {
+            glib->drawSquare((*a)->getX(), (*a)->getY(), (*a)->getColor());
+        }
         for (auto a = snake->m_body.begin(); a != snake->m_body.end(); a++)
         {
             glib->drawSquare((*a)->getX(), (*a)->getY(), (*a)->getColor());
@@ -124,15 +131,18 @@ void Game::collisions()
             m_speed += 2;
         }
         snake->grow();
-        m_score += m_speed;
-        while ((x == fruit->getX() && y == fruit->getY()) || body_conflicts(fruit->getX(), fruit->getY()))
+        if (m_gen_obstacles)
+            m_score += (m_speed * 2);
+        else
+            m_score += m_speed;
+        while ((x == fruit->getX() && y == fruit->getY()) || body_collisions(fruit->getX(), fruit->getY()))
         {
             fruit->reroll();
         }
     }
     for (auto a = snake->m_body.begin(); a != snake->m_body.end(); a++)
     {
-        if (body_conflicts(x, y) 
+        if (body_collisions(x, y) || obstacle_collisions(x, y) 
         || (snake->getX() < 0 || snake->getX() >= m_width || snake->getY() < 0 || snake->getY() >= m_height ) 
         || (*a)->getX() < 0 || (*a)->getX() >= m_width || (*a)->getY() < 0 || (*a)->getY() >= m_height)
         {
@@ -141,9 +151,19 @@ void Game::collisions()
     }
 }
 
-bool Game::body_conflicts(int x, int y)
+bool Game::body_collisions(int x, int y)
 {
     for (auto a = snake->m_body.begin(); a != snake->m_body.end(); a++)
+    {
+        if ((*a)->getX() == x && (*a)->getY() == y)
+            return true;
+    }
+    return false;
+}
+
+bool Game::obstacle_collisions(int x, int y)
+{
+    for (auto a = obstacles.begin(); a != obstacles.end(); a++)
     {
         if ((*a)->getX() == x && (*a)->getY() == y)
             return true;
@@ -194,4 +214,19 @@ IGlib *Game::create_renderer(std::string const &str, unsigned int width, unsigne
         return nullptr;
     }
     return (*func)(width, height, size);
+}
+
+void Game::place_obstacles()
+{
+    int distribution = (m_width * m_height) / 35;
+    // int nbr_height = m_height / 7;
+    int x;
+    int y;
+    for (int i = 0; i < distribution; i++)
+    {
+            x = rand() % m_width;
+            y = rand() % m_width;
+            if (y != snake->getY())
+                obstacles.push_front(new Obstacle(x, y));
+    }
 }

@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Fruit.cpp                                          :+:      :+:    :+:   */
+/*   Obstacle.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/31 14:13:08 by ppreez            #+#    #+#             */
-/*   Updated: 2019/08/09 09:53:55 by ppreez           ###   ########.fr       */
+/*   Created: 2019/08/09 09:53:41 by ppreez            #+#    #+#             */
+/*   Updated: 2019/08/09 10:05:42 by ppreez           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Fruit.hpp"
+#include "Obstacle.hpp"
 
-Fruit::Fruit()
+Obstacle::Obstacle()
 {
 
 }
 
-Fruit::Fruit(int width, int height)
-:m_width(width), m_height(height)
+Obstacle::Obstacle(int x, int y)
 {
-    srand(time(NULL));
-    reroll();
-    m_color.r = 255;
-    m_color.g = 0;
-    m_color.b = 255;
+    m_pos_x = x;
+    m_pos_y = y;
+    m_color.r = 75;
+    m_color.g = 75;
+    m_color.b = 75;
     m_color.a = 255;
 }
 
-Fruit::Fruit(Fruit const &rhs)
+Obstacle::Obstacle(Obstacle const &rhs)
 {
     *this = rhs;
 }
 
-Fruit &Fruit::operator=(Fruit const &rhs)
+Obstacle &Obstacle::operator=(Obstacle const &rhs)
 {
     if (this != &rhs)
     {
@@ -42,13 +41,8 @@ Fruit &Fruit::operator=(Fruit const &rhs)
     return *this;
 }
 
-Fruit::~Fruit()
+Obstacle::~Obstacle()
 {
-    
+
 }
 
-void Fruit::reroll()
-{
-    m_pos_x = rand() % m_width;
-    m_pos_y = rand() % m_height;
-}

@@ -6,7 +6,7 @@
 #    By: ppreez <ppreez@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/06/03 13:36:13 by ppreez            #+#    #+#              #
-#    Updated: 2019/08/07 15:56:11 by ppreez           ###   ########.fr        #
+#    Updated: 2019/08/09 10:07:58 by ppreez           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SO_PATH = ./shared/
 G_SRC_PATH = $(SRC_PATH)graphics/
 DEP_PATH = ./dependencies
 
-SRC_FILE = main.cpp Game.cpp AEntity.cpp Snake.cpp Body.cpp Fruit.cpp
+SRC_FILE = main.cpp Game.cpp AEntity.cpp Snake.cpp Body.cpp Fruit.cpp Obstacle.cpp
 
 OBJ_FILE = $(SRC_FILE:%.cpp=%.o)
 
